@@ -126,33 +126,39 @@ var GLD={f:'#FFC627',s:'#8C1D40',t:'#191919'};
 var MRN={f:'#8C1D40',s:'#5a1228',t:'#fff'};
 var REP_F='#D8D8D8',REP_S='#999';
 var CAP_ON={f:'#78BE20',s:'#3a6010'},CAP_OFF={f:'#C0C0C0',s:'#888'};
-var CAMP_ON={f:'#FFC627',s:'#8C1D40'},CAMP_OFF={f:'#E8E8E8',s:'#BFBFBF'};
+var CAMP_ON={f:'#FFC627',s:'#8C1D40'};
 var POL_F='#A855C8',POL_S='#7B2D8B',POL_T='#fff';
 var POL_OFF_F='#D0C8D8',POL_OFF_S='#9988a8',POL_OFF_T='#555';
 var S=1.75;
 var DY=350,DH=38,xCAP=185,xP=244,RX=300,RY=200;
-var CLAMP=110,ALLO_X=580,CAP_CY=90,CAP_DOCK=239,BADGE_CX=710;
+/* CLAMP: how far repressor slides down to reach operator when binding.
+   OC_FLOAT: how far above the operator the Oc repressor hovers — 
+   enough to make it visually clear it isn't touching. */
+var CLAMP=110,OC_FLOAT=60,ALLO_X=580,CAP_CY=90,CAP_DOCK=239,BADGE_CX=710;
 var SUB_A=DY+DH+16,SUB_B=DY+DH+32;
 var SR=[SUB_A,SUB_B,SUB_A,SUB_B,SUB_A,SUB_B,SUB_A,SUB_B];
 var MRNA_X1=318,MRNA_X2=612,MRNA_Y=DY+DH+54;
 var MRNA_LEN=(MRNA_X2-MRNA_X1)*S,CYCLE_MS=3000;
 
-/* Is the super-repressor + lactose case active? */
-function isIsLac(){return ST.i==='s'&&ST.lac&&ST.y!=='minus';}
+/* True when allolactose is available in the cell */
+function alloPresent(){return ST.lac&&ST.y!=='minus';}
+function isIsLac(){return ST.i==='s'&&alloPresent();}
 
 function stopAll(){stopToken++;if(rafId){cancelAnimationFrame(rafId);rafId=null;}document.getElementById('stopBtn').classList.remove('vis');}
 function W(ms,fn){var tok=stopToken;setTimeout(function(){if(stopToken===tok)fn();},ms*SPEED);}
 function tog(w){if(w==='lac'){ST.lac=!ST.lac;document.getElementById('tl').classList.toggle('on',ST.lac);document.getElementById('tlv').textContent=ST.lac?'Present':'Absent';}else{ST.glc=!ST.glc;document.getElementById('tg').classList.toggle('on',ST.glc);document.getElementById('tgv').textContent=ST.glc?'Present':'Absent';}reset();}
 function pick(g,a){ST[g]=a;var io=OFF[g]&&OFF[g][a];GRP[g].forEach(function(v){var b=document.getElementById('b'+g+'-'+v);if(!b)return;b.classList.remove('sel-on','sel-off');if(v===a)b.classList.add(io?'sel-off':'sel-on');});reset();}
 function reset(){stopAll();['xbtn','epanel'].forEach(function(id){document.getElementById(id).classList.remove('vis');});document.getElementById('outcome').classList.remove('vis','oc-on','oc-off','oc-partial');document.getElementById('slog').textContent='';document.getElementById('prods').innerHTML='';drawBase();}
+
 function calc(){
   var lac=ST.lac,glc=ST.glc,i=ST.i,p=ST.p,o=ST.o;
-  var li=lac&&ST.y!=='minus',rm=i!=='minus',ind=rm&&i!=='s'&&li;
+  var li=alloPresent(),rm=i!=='minus',ind=rm&&i!=='s'&&li;
   var of=o==='c'||!rm||ind,rb=!of,cb=!glc&&p!=='minus',pb=p!=='minus'&&of;
   var lv=!pb?'off':!glc?'on':'partial';
   var pk;if(!rm)pk='abs';else if(i==='s')pk='def';else if(ind)pk='bnd';else if(lac&&ST.y==='minus')pk='eym';else pk='emp';
   return{rb,cb,pb,lv,rm,ind,pk,zF:ST.z==='plus',yF:ST.y==='plus',aF:ST.a==='plus'};
 }
+
 var NS='http://www.w3.org/2000/svg';
 function el(t,a){var e=document.createElementNS(NS,t);if(a)Object.keys(a).forEach(function(k){e.setAttribute(k,a[k]);});return e;}
 function T(x,y,s,fs,fw,c,a){var t=el('text',{x:x*S,y:y*S,'font-size':(fs||13)*S,'font-weight':fw||400,fill:c||'#191919','text-anchor':a||'middle','dominant-baseline':'central','font-family':'system-ui,sans-serif'});t.textContent=s;return t;}
@@ -201,9 +207,6 @@ function repBodyMis(g){
   var bx=RX+26,by=RY-22;g.appendChild(el('circle',{cx:bx*S,cy:by*S,r:9*S,fill:'#FCEBEB',stroke:'#8C1D40','stroke-width':1.5*S}));g.appendChild(Ln(bx-5,by-5,bx+5,by+5,'#8C1D40','2'));g.appendChild(Ln(bx+5,by-5,bx-5,by+5,'#8C1D40','2'));
   g.appendChild(T(RX,RY+8,'I⁻ repressor',11,700,'#444','middle'));
 }
-
-/* repBody: draws repressor body only. Does NOT include Iˢ+lactose extras.
-   Those are added separately into rG after clamping completes. */
 function repBody(g,pk){
   g.appendChild(El(RX-13,RY-8,26,28,REP_F,REP_S,2));
   g.appendChild(El(RX+12,RY+10,24,26,REP_F,REP_S,2));
@@ -214,22 +217,14 @@ function repBody(g,pk){
   else if(pk==='bnd'){g.appendChild(el('polygon',{points:hp(px*S,py*S,13*S),fill:'#FF7F32',stroke:'#8B3a00','stroke-width':2*S}));}
   else if(pk==='def'){g.appendChild(Pt('M '+(RX+24)*S+' '+(RY-12)*S+' L '+(RX+36)*S+' '+(RY-4)*S+' L '+(RX+28)*S+' '+RY*S+' L '+(RX+38)*S+' '+(RY+8)*S+' L '+(RX+24)*S+' '+(RY+12)*S,'none','#8C1D40',3));}
 }
-
-/* Add Iˢ+lactose extras INTO an existing group (rG) that is already
-   positioned at translateY(CLAMP*S). Coords are in original space (RX,RY)
-   so they render relative to the repressor which is also at RX,RY. */
 function addIsLacOverlay(g){
-  var ax=RX+80, ay=RY; /* allolactose sits 80 units right of repressor centre */
+  var ax=RX+80,ay=RY;
   g.appendChild(el('polygon',{points:hp(ax*S,ay*S,13*S),fill:'#FF7F32',stroke:'#8B3a00','stroke-width':2*S}));
   g.appendChild(T(ax,ay+28,'allolactose',10,600,'#8B3a00','middle'));
-  /* dashed arrow pointing left toward the deformed pocket */
   g.appendChild(el('line',{x1:(ax-16)*S,y1:ay*S,x2:(RX+40)*S,y2:RY*S,stroke:'#8B3a00','stroke-width':1.5*S,'stroke-dasharray':(4*S)+' '+(3*S),'marker-end':'url(#arr)','opacity':'0.7'}));
-  /* "cannot bind" centred on arrow, slightly above */
   g.appendChild(T((ax+RX+40)/2,ay-18,'cannot bind',10,600,'#8C1D40','middle'));
-  /* state note just above repressor body */
   g.appendChild(T(RX,RY-56,'Iˢ: deformed pocket — allolactose cannot bind',11,600,'#8C1D40','middle'));
 }
-
 function repStateLabel(svg,pk,isOc){
   if(isOc){svg.appendChild(T(RX,RY-60,'Oᶜ: operator mutated',12,600,'#8C1D40','middle'));svg.appendChild(T(RX,RY-44,'repressor cannot bind',11,500,'#8C1D40','middle'));}
   else if(pk==='bnd'){svg.appendChild(T(RX,RY-60,'Shape change:',12,600,'#085041','middle'));svg.appendChild(T(RX,RY-44,'repressor released',11,500,'#085041','middle'));}
@@ -237,9 +232,8 @@ function repStateLabel(svg,pk,isOc){
   else if(pk==='eym'){svg.appendChild(T(RX,RY-60,'Y⁻: no allolactose',12,600,'#8C1D40','middle'));svg.appendChild(T(RX,RY-44,'repressor stays bound',11,500,'#8C1D40','middle'));}
   if(pk==='bnd'){svg.appendChild(T(RX+50,RY-8,'Allolactose bound',11,600,'#8B3a00','start'));}
 }
-
 function capShapes(g,cx,cy,active){
-  var cp=active?CAP_ON:CAP_OFF,camp=active?CAMP_ON:CAMP_OFF;
+  var cp=active?CAP_ON:CAP_OFF,camp=active?CAMP_ON:{f:'#E8E8E8',s:'#BFBFBF'};
   g.appendChild(T(cx,cy-70,active?'CAP·cAMP complex':'CAP — inactive',13,700,active?CAP_ON.s:'#555'));g.appendChild(T(cx,cy-54,active?'No glucose → high cAMP':'Glucose → low cAMP',11,500,active?'#085041':'#555'));
   g.appendChild(El(cx-18,cy,18,21,cp.f,cp.s,2));g.appendChild(El(cx+18,cy,18,21,cp.f,cp.s,2));g.appendChild(Ci(cx,cy,12,camp.f,camp.s,2));g.appendChild(T(cx,cy,'cAMP',9.5,700,active?'#191919':'#888'));
 }
@@ -261,35 +255,93 @@ function runSim(){
   var isOc=ST.o==='c',rG=null,aG=null,cG=null,slG=null,polG=null;
   var t=0;function at(d,fn){t+=d;W(t,function(){if(alive())fn();});}
 
+  /* ─── Step 1: lacI ─── */
   at(0,function(){
     var m=mutLbl(0),lbl=m?m.lbl:'lacI';drawBox(svg,0,lbl,BLU);
     slog(res.rm?'Step 1: lacI transcribed → repressor protein produced':'Step 1: lacI⁻ — mutated repressor produced, cannot bind operator');
   });
 
+  /* ─── Step 2: repressor + operator ─── */
   at(700,function(){
     drawBox(svg,4,isOc?'Oᶜ':'O',GLD);
+
+    /* I⁻: misfolded repressor */
     if(!res.rm){
       var g=el('g',{});repBodyMis(g);g.style.opacity='0';svg.appendChild(g);fi(g,0.8);
       W(500,function(){if(!alive())return;var sl=el('g',{});sl.style.opacity='0';sl.appendChild(T(RX,RY-55,'I⁻: repressor misfolded',12,600,'#8C1D40','middle'));sl.appendChild(T(RX,RY-40,'cannot bind operator',11,500,'#8C1D40','middle'));svg.appendChild(sl);fi(sl,0.6);});
       slog('Step 2: I⁻ — misfolded repressor present but cannot bind operator. Operator always open.');return;
     }
-    var ip=res.ind?'emp':(isOc?'emp':res.pk),iy=res.ind?CLAMP*S:0;
+
+    /* Determine initial translateY for rG.
+       Oᶜ case: repressor floats at OC_FLOAT above DNA — clearly not touching.
+       Induction case: repressor starts at CLAMP (pre-clamped) to receive allolactose. */
+    var iy = isOc ? OC_FLOAT*S : (res.ind ? CLAMP*S : 0);
     rG=el('g',{});rG.style.transform='translateY('+iy+'px)';rG.style.opacity='0';
+
+    /* For Oᶜ: show 'emp' pocket (repressor present but cannot bind operator).
+       If lactose is also present & permease intact, allolactose IS in the cell and
+       will bind the repressor (normal induction) — repressor gets 'bnd' pocket. */
+    var showBndPocket = isOc && alloPresent() && ST.i!=='s' && ST.i!=='minus';
+    var ip = showBndPocket ? 'emp' : (res.ind ? 'emp' : (isOc ? 'emp' : res.pk));
     repBody(rG,ip);svg.appendChild(rG);fi(rG,0.8);
-    /* For Iˢ+lactose: no separate slG — labels will be added inside rG after clamp */
+
+    if(isOc){
+      slog('Step 2: Oᶜ — operator mutated. Repressor hovers nearby but cannot bind.');
+      /* If no lactose: just show "operator mutated / cannot bind" labels */
+      if(!alloPresent()){
+        W(500,function(){if(!alive())return;slG=el('g',{});slG.style.opacity='0';repStateLabel(slG,'emp',true);svg.appendChild(slG);fi(slG,0.5);});
+        return;
+      }
+      /* Lactose present + I⁺/normal repressor: allolactose binds repressor, which still can't bind Oᶜ.
+         Show allolactose approaching and binding, then "released" label.
+         Repressor stays floating at OC_FLOAT — never clamps. */
+      if(ST.i!=='s'){
+        /* Allolactose slides in and binds at OC_FLOAT height */
+        W(800,function(){if(!alive())return;
+          aG=el('g',{});
+          aG.appendChild(el('polygon',{points:hp(ALLO_X*S,RY*S,15*S),fill:'#FF7F32',stroke:'#8B3a00','stroke-width':2*S}));
+          aG.appendChild(T(ALLO_X,RY+30,'allolactose',11,600,'#8B3a00'));
+          aG.style.transform='translateY('+(OC_FLOAT*S)+'px)';fi(aG,0.5);svg.appendChild(aG);
+          slog('Step 2: Allolactose binds repressor (normal repressor, Oᶜ does not affect this)...');
+        });
+        W(1700,function(){if(!alive()||!aG)return;
+          aG.style.transition='transform '+(2.0*SPEED)+'s ease-in-out';
+          aG.style.transform='translate('+(-(ALLO_X-RX-32)*S)+'px,'+(OC_FLOAT*S)+'px)';
+        });
+        W(3800,function(){if(!alive())return;
+          rm(rG);rG=el('g',{});rG.style.transform='translateY('+(OC_FLOAT*S)+'px)';repBody(rG,'bnd');svg.appendChild(rG);rm(aG);aG=null;
+          W(1000,function(){if(!alive()||!rG)return;
+            /* Repressor drifts away — cannot clamp Oᶜ operator */
+            rG.style.transition='transform '+(1.5*SPEED)+'s ease-in-out, opacity '+(1.5*SPEED)+'s ease';
+            rG.style.transform='translateY('+(OC_FLOAT*S-40*S)+'px)';rG.style.opacity='0.15';
+            var pill=el('g',{});
+            pill.appendChild(Rx(RX-44,RY+OC_FLOAT-8,88,22,8,{f:'#E1F5EE',s:'#085041',t:'#085041'}));
+            pill.appendChild(T(RX,RY+OC_FLOAT+3,'released ↑ (Oᶜ)',11,600,'#085041'));
+            svg.appendChild(pill);fifo(pill,0.5,2500,0.8);
+            slog('Step 2: Repressor released — operator Oᶜ stays open regardless');
+            /* Show Oᶜ label after release */
+            W(400,function(){if(!alive())return;slG=el('g',{});slG.style.opacity='0';repStateLabel(slG,'emp',true);svg.appendChild(slG);fi(slG,0.5);});
+          });
+        });
+      } else {
+        /* Iˢ + Oᶜ: show allolactose if present, floating but cannot bind pocket */
+        W(500,function(){if(!alive())return;addIsLacOverlay(rG);});
+        W(500,function(){if(!alive())return;slG=el('g',{});slG.style.opacity='0';repStateLabel(slG,'emp',true);svg.appendChild(slG);fi(slG,0.5);});
+      }
+      return;
+    }
+
+    /* Normal (non-Oᶜ) paths */
     if(!res.ind&&!isIsLac()){
-      W(500,function(){if(!alive())return;slG=el('g',{});slG.style.opacity='0';repStateLabel(slG,ip,isOc);svg.appendChild(slG);fi(slG,0.5);});
+      W(500,function(){if(!alive())return;slG=el('g',{});slG.style.opacity='0';repStateLabel(slG,ip,false);svg.appendChild(slG);fi(slG,0.5);});
     }
     if(res.ind)slog('Step 2: Repressor clamped on operator — awaiting allolactose');
-    else if(isOc)slog('Step 2: Oᶜ — operator mutated, repressor cannot bind');
     else if(res.rb)slog('Step 2: Repressor slides onto operator...');
     else slog('Step 2: Repressor present in cell');
   });
 
-  if(!res.rm){at(200,function(){});}
-  else if(isOc){
-    at(900,function(){if(!alive())return;var pill=el('g',{});pill.appendChild(Rx(RX-54,RY+58,108,24,9,{f:'#E1F5EE',s:'#085041',t:'#085041'}));pill.appendChild(T(RX,RY+70,'not binding (Oᶜ)',12,600,'#8C1D40'));fi(pill,0.5);svg.appendChild(pill);});at(300,function(){});
-  } else if(res.ind){
+  if(!res.rm||isOc){at(200,function(){});}
+  else if(res.ind){
     at(900,function(){if(!alive())return;aG=el('g',{});aG.appendChild(el('polygon',{points:hp(ALLO_X*S,RY*S,15*S),fill:'#FF7F32',stroke:'#8B3a00','stroke-width':2*S}));aG.appendChild(T(ALLO_X,RY+30,'allolactose',11,600,'#8B3a00'));aG.style.transform='translateY('+(CLAMP*S)+'px)';fi(aG,0.5);svg.appendChild(aG);slog('Step 2: Allolactose approaches repressor pocket...');});
     at(900,function(){if(!alive()||!aG)return;aG.style.transition='transform '+(2.2*SPEED)+'s ease-in-out';aG.style.transform='translate('+(-(ALLO_X-RX-32)*S)+'px,'+(CLAMP*S)+'px)';slog('Step 2: Allolactose slides into inducer-binding pocket...');});
     at(2300,function(){if(!alive())return;rm(rG);rG=el('g',{});rG.style.transform='translateY('+(CLAMP*S)+'px)';repBody(rG,'bnd');svg.appendChild(rG);rm(aG);aG=null;slog('Step 2: Allolactose fills pocket → repressor changes shape...');
@@ -297,25 +349,21 @@ function runSim(){
     });at(7000,function(){});
   } else if(res.rb){
     at(800,function(){if(!alive()||!rG)return;rm(slG);slG=null;slog('Step 2: Repressor clamps onto operator...');
-      sy(rG,0,CLAMP*S,1.8,function(){
-        if(!alive())return;
-        drawBox(svg,4,'O',MRN);
-        if(isIsLac()){
-          /* Add allolactose overlay directly into rG — already at CLAMP*S, correct position */
-          addIsLacOverlay(rG);
-        } else if(res.pk!=='emp'){
-          slG=el('g',{});slG.style.opacity='0';repStateLabel(slG,res.pk,false);svg.appendChild(slG);W(80,function(){if(alive()&&slG)fi(slG,0.5);});
-        }
+      sy(rG,0,CLAMP*S,1.8,function(){if(!alive())return;drawBox(svg,4,'O',MRN);
+        if(isIsLac()){addIsLacOverlay(rG);}
+        else if(res.pk!=='emp'){slG=el('g',{});slG.style.opacity='0';repStateLabel(slG,res.pk,false);svg.appendChild(slG);W(80,function(){if(alive()&&slG)fi(slG,0.5);});}
         slog('Step 2: Repressor clamped — '+(isIsLac()?'allolactose present but cannot bind deformed pocket':'transcription blocked'));
       });
     });at(2800,function(){});
   }
 
+  /* ─── Step 3: CAP ─── */
   at(700,function(){if(!alive())return;drawBox(svg,2,'CAP',GLD);cG=el('g',{});capShapes(cG,xCAP,CAP_CY,res.cb);svg.appendChild(cG);
     if(res.cb){slog('Step 3: No glucose → cAMP rises → CAP·cAMP moving toward binding site...');fsi(cG,0,CAP_DOCK*S,2.6,function(){if(alive())slog('Step 3: CAP·cAMP docked → activates RNA polymerase');});}
     else{fi(cG,0.8);slog('Step 3: Glucose present → low cAMP → CAP stays inactive');}
   });
 
+  /* ─── Step 4: RNA Pol ─── */
   at(res.cb?6200:2800,function(){if(!alive())return;
     var polCY=DY+DH/2;
     if(ST.p==='minus'){
@@ -372,7 +420,7 @@ function explain(){
   if(p==='minus'){title='P⁻ — transcription impossible';body='The promoter sequence is mutated. RNA polymerase cannot recognise or bind the promoter. No transcription under any conditions. Cis-acting mutation.';tags=[{t:'Cis-acting',c:'ty'},{t:'Always off',c:'tm'}];}
   else if(i==='s'){title='Iˢ super-repressor — permanently repressed';body='The inducer-binding pocket is deformed. Allolactose is present in the cell but cannot fit the altered pocket. The repressor stays permanently bound to the operator. Dominant trans-acting.';tags=[{t:'Trans-acting (dominant)',c:'tm'},{t:'Pocket deformed',c:'tm'},{t:'Always off',c:'tm'}];}
   else if(i==='minus'){title='I⁻ — constitutive expression';body='A repressor protein is produced but it is misfolded — it cannot bind the operator. The operator stays permanently open. Expression depends only on CAP: '+(glc?'glucose → low cAMP → CAP inactive → basal.':'no glucose → high cAMP → CAP active → full.')+' Trans-acting — complementable by a wild-type I⁺ allele.';tags=[{t:'Trans-acting',c:'ty'},{t:'Constitutive',c:'tg'},{t:'Complementable',c:'ty'},{t:glc?'Basal expression':'Full expression',c:glc?'ty':'tn'}];}
-  else if(o==='c'){title='Oᶜ — constitutive expression';body='The operator sequence is mutated. The repressor protein is normal but cannot recognise the altered operator sequence. Operator stays permanently open. Cis-acting — cannot be complemented. CAP determines expression level.';tags=[{t:'Cis-acting',c:'ty'},{t:'Constitutive',c:'tg'},{t:'Not complementable',c:'tm'},{t:glc?'Basal':'Full expression',c:glc?'ty':'tn'}];}
+  else if(o==='c'){title='Oᶜ — constitutive expression';body='The operator sequence is mutated. The repressor protein is normal and '+(lac&&y!=='minus'?'allolactose does bind it (induction still occurs), but the operator mutation means the repressor was never able to bind in the first place.':'allolactose would bind it if lactose were present.')+' Operator stays permanently open. Cis-acting — cannot be complemented. CAP determines expression level.';tags=[{t:'Cis-acting',c:'ty'},{t:'Constitutive',c:'tg'},{t:'Not complementable',c:'tm'},{t:glc?'Basal':'Full expression',c:glc?'ty':'tn'}];}
   else if(lac&&y==='minus'){title='Y⁻ with lactose — operon off';body='No permease → lactose cannot enter → no allolactose → repressor stays clamped.';tags=[{t:'Y⁻: no permease',c:'tm'},{t:'Operon off',c:'tm'}];}
   else if(!lac&&glc){title='Default off — no lactose, glucose present';body='No lactose → repressor clamps on operator.\n\nGlucose → low cAMP → CAP inactive. Default state.';tags=[{t:'Repressor bound',c:'tm'},{t:'CAP inactive',c:'ty'},{t:'Default off',c:'tm'}];}
   else if(!lac&&!glc){title='Off — no lactose, no glucose';body='No lactose → repressor clamps.\n\nCAP active but cannot override repressor.';tags=[{t:'Repressor dominant',c:'tm'},{t:'Off',c:'tm'}];}
