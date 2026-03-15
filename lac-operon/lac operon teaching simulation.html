@@ -1,0 +1,491 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1rem 1.25rem;font-family:var(--font-sans,sans-serif)}
+.ctrl-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:10px 14px}
+.clabel{font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.tog-row{display:flex;align-items:center;gap:8px}
+.ttrack{width:36px;height:20px;background:var(--color-border-secondary);border-radius:10px;position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
+.ttrack.on{background:#1D9E75}
+.tknob{position:absolute;top:2px;left:2px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s;pointer-events:none}
+.ttrack.on .tknob{transform:translateX(16px)}
+.tval{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.sec-title{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px}
+.mut-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}
+.mbtn{background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:8px;padding:6px 4px;font-size:10px;font-weight:500;color:var(--color-text-secondary);cursor:pointer;text-align:center;line-height:1.4;transition:all .15s;min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.mbtn sup{font-size:8px}
+.mbtn:hover{background:var(--color-background-secondary)}
+.mbtn.active{background:#E1F5EE;border-color:#1D9E75;color:#0F6E56}
+.mbtn.active-off{background:#FCEBEB;border-color:#E24B4A;color:#A32D2D}
+.mut-gene-label{font-size:10px;font-weight:500;color:var(--color-text-secondary);margin-bottom:4px;margin-top:10px}
+.svg-wrap{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.btn-row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.run-btn{background:#1D9E75;border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:500;padding:8px 18px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
+.run-btn:hover{background:#0F6E56}
+.run-btn:disabled{background:var(--color-border-secondary);cursor:not-allowed}
+.explain-btn{background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:8px;color:var(--color-text-primary);font-size:13px;font-weight:500;padding:8px 18px;cursor:pointer;transition:all .15s;display:none;align-items:center;gap:6px}
+.explain-btn:hover{background:var(--color-background-secondary)}
+.explain-btn.visible{display:flex}
+.outcome{display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:8px;font-size:13px;font-weight:500;margin-bottom:10px;border:0.5px solid transparent;transition:all .3s;display:none}
+.outcome.show{display:flex}
+.outcome.on{background:#E1F5EE;border-color:#5DCAA5;color:#0F6E56}
+.outcome.off{background:var(--color-background-secondary);border-color:var(--color-border-tertiary);color:var(--color-text-secondary)}
+.outcome.partial{background:#FAEEDA;border-color:#EF9F27;color:#633806}
+.odot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.on .odot{background:#1D9E75}.off .odot{background:var(--color-border-secondary)}.partial .odot{background:#EF9F27}
+.expl-panel{display:none;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.expl-panel.show{display:block}
+.expl-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px}
+.expl-body{font-size:12px;color:var(--color-text-secondary);line-height:1.65}
+.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tag{font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px}
+.tag-blue{background:#E6F1FB;color:#185FA5;border:0.5px solid #85B7EB}
+.tag-green{background:#E1F5EE;color:#0F6E56;border:0.5px solid #5DCAA5}
+.tag-amber{background:#FAEEDA;color:#633806;border:0.5px solid #EF9F27}
+.tag-red{background:#FCEBEB;color:#A32D2D;border:0.5px solid #F09595}
+.products-row{display:flex;gap:8px;flex-wrap:wrap;min-height:26px}
+.prod-pill{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:#E1F5EE;color:#0F6E56;border:0.5px solid #5DCAA5;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.prod-pill.show{opacity:1;transform:translateY(0)}
+.prod-pill.dead{background:#FCEBEB;color:#A32D2D;border-color:#F09595}
+.step-log{font-size:11px;color:var(--color-text-secondary);line-height:1.8;margin-top:8px;min-height:20px}
+@media(prefers-reduced-motion:no-preference){
+  .pol-slide{animation:polSlide 2.4s linear infinite}
+  .mrna-grow{animation:mrnaGrow 2.4s linear infinite}
+  .pulse-in{animation:pulseIn .5s ease forwards}
+}
+@keyframes polSlide{0%{transform:translateX(0)}100%{transform:translateX(210px)}}
+@keyframes mrnaGrow{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(0 0 0 0)}}
+@keyframes pulseIn{0%{opacity:0;transform:scale(.85)}100%{opacity:1;transform:scale(1)}}
+</style>
+
+<div class="wrap">
+
+<div class="ctrl-row">
+  <div class="card">
+    <div class="clabel">Lactose</div>
+    <div class="tog-row">
+      <div class="ttrack" id="tt-lac" onclick="tog('lac')"><div class="tknob"></div></div>
+      <span class="tval" id="tv-lac">Absent</span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="clabel">Glucose</div>
+    <div class="tog-row">
+      <div class="ttrack on" id="tt-glc" onclick="tog('glc')"><div class="tknob"></div></div>
+      <span class="tval" id="tv-glc">Present</span>
+    </div>
+  </div>
+</div>
+
+<div class="sec-title">Mutations — select one allele per gene</div>
+
+<div class="mut-gene-label">lacI (repressor)</div>
+<div class="mut-grid">
+  <div class="mbtn active" id="mb-i-plus" onclick="setMut('lacI','plus')">I<sup>+</sup><span style="font-size:9px;font-weight:400">normal repressor</span></div>
+  <div class="mbtn" id="mb-i-minus" onclick="setMut('lacI','minus')">I<sup>-</sup><span style="font-size:9px;font-weight:400">no repressor</span></div>
+  <div class="mbtn" id="mb-i-s" onclick="setMut('lacI','s')">I<sup>s</sup><span style="font-size:9px;font-weight:400">super-repressor</span></div>
+</div>
+
+<div class="mut-gene-label">lacP (promoter)</div>
+<div class="mut-grid" style="grid-template-columns:1fr 1fr">
+  <div class="mbtn active" id="mb-p-plus" onclick="setMut('lacP','plus')">P<sup>+</sup><span style="font-size:9px;font-weight:400">normal promoter</span></div>
+  <div class="mbtn" id="mb-p-minus" onclick="setMut('lacP','minus')">P<sup>-</sup><span style="font-size:9px;font-weight:400">RNA Pol can't bind</span></div>
+</div>
+
+<div class="mut-gene-label">lacO (operator)</div>
+<div class="mut-grid" style="grid-template-columns:1fr 1fr">
+  <div class="mbtn active" id="mb-o-plus" onclick="setMut('lacO','plus')">O<sup>+</sup><span style="font-size:9px;font-weight:400">normal operator</span></div>
+  <div class="mbtn" id="mb-o-c" onclick="setMut('lacO','c')">O<sup>c</sup><span style="font-size:9px;font-weight:400">repressor can't bind</span></div>
+</div>
+
+<div class="mut-gene-label">lacZ / lacY / lacA (structural genes)</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:12px">
+  <div style="display:flex;flex-direction:column;gap:5px">
+    <div class="mbtn active" id="mb-z-plus" onclick="setMut('lacZ','plus')" style="font-size:10px">Z<sup>+</sup> functional</div>
+    <div class="mbtn" id="mb-z-minus" onclick="setMut('lacZ','minus')" style="font-size:10px">Z<sup>-</sup> no β-gal</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:5px">
+    <div class="mbtn active" id="mb-y-plus" onclick="setMut('lacY','plus')" style="font-size:10px">Y<sup>+</sup> functional</div>
+    <div class="mbtn" id="mb-y-minus" onclick="setMut('lacY','minus')" style="font-size:10px">Y<sup>-</sup> no permease</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:5px">
+    <div class="mbtn active" id="mb-a-plus" onclick="setMut('lacA','plus')" style="font-size:10px">A<sup>+</sup> functional</div>
+    <div class="mbtn" id="mb-a-minus" onclick="setMut('lacA','minus')" style="font-size:10px">A<sup>-</sup> no acetylase</div>
+  </div>
+</div>
+
+<div class="btn-row">
+  <button class="run-btn" id="runBtn" onclick="runSim()">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polygon points="3,2 12,7 3,12" fill="white"/></svg>
+    Run simulation
+  </button>
+  <button class="explain-btn" id="explainBtn" onclick="showExplain()">
+    Explain what happened ↗
+  </button>
+</div>
+
+<div class="svg-wrap">
+  <svg id="oSvg" width="100%" viewBox="0 0 640 220" style="display:block"></svg>
+</div>
+
+<div id="outcome" class="outcome off"><div class="odot"></div><span id="otext"></span></div>
+
+<div class="step-log" id="stepLog"></div>
+
+<div class="products-row" id="prods" style="margin-top:8px"></div>
+
+<div class="expl-panel" id="explPanel">
+  <div class="expl-title" id="explTitle"></div>
+  <div class="expl-body" id="explBody"></div>
+  <div class="tag-row" id="tagRow"></div>
+</div>
+
+</div>
+
+<script>
+const S={lac:false,glc:true,lacI:'plus',lacP:'plus',lacO:'plus',lacZ:'plus',lacY:'plus',lacA:'plus'};
+let hasRun=false;
+
+function tog(which){
+  if(which==='lac'){S.lac=!S.lac;document.getElementById('tt-lac').classList.toggle('on',S.lac);document.getElementById('tv-lac').textContent=S.lac?'Present':'Absent';}
+  else{S.glc=!S.glc;document.getElementById('tt-glc').classList.toggle('on',S.glc);document.getElementById('tv-glc').textContent=S.glc?'Present':'Absent';}
+  resetDisplay();
+}
+
+function setMut(gene,allele){
+  S[gene]=allele;
+  const prefix={'lacI':'i','lacP':'p','lacO':'o','lacZ':'z','lacY':'y','lacA':'a'}[gene];
+  const alleles={'lacI':['plus','minus','s'],'lacP':['plus','minus'],'lacO':['plus','c'],'lacZ':['plus','minus'],'lacY':['plus','minus'],'lacA':['plus','minus']}[gene];
+  alleles.forEach(a=>{
+    const btn=document.getElementById('mb-'+prefix+'-'+a);
+    if(btn){btn.classList.remove('active','active-off');if(a===allele) btn.classList.add(a==='minus'||a==='s'?'active-off':'active');}
+  });
+  resetDisplay();
+}
+
+function resetDisplay(){
+  hasRun=false;
+  document.getElementById('explainBtn').classList.remove('visible');
+  document.getElementById('explPanel').classList.remove('show');
+  document.getElementById('outcome').classList.remove('show');
+  document.getElementById('stepLog').textContent='';
+  document.getElementById('prods').innerHTML='';
+  drawBaseOperon();
+}
+
+function compute(){
+  const {lac,glc,lacI,lacP,lacO,lacZ,lacY,lacA}=S;
+  const cAMPHigh=!glc;
+  let repBound,capBound,polBound,level,transcribed;
+
+  const repMade = lacI!=='minus';
+  const repCanBindInducer = lacI!=='s';
+  const allolactosePresent = lac;
+  const inducerReleases = repMade && repCanBindInducer && allolactosePresent;
+  const repBlocked = !repMade || inducerReleases;
+  const operatorFree = lacO==='c' || repBlocked;
+
+  repBound = !operatorFree;
+  capBound = cAMPHigh && lacP!=='minus';
+  polBound = (lacP!=='minus') && operatorFree;
+  transcribed = polBound;
+  level = !transcribed?'off': cAMPHigh?'on':'partial';
+
+  const zFunc = lacZ==='plus', yFunc = lacY==='plus', aFunc = lacA==='plus';
+  return {repBound,capBound,polBound,level,transcribed,zFunc,yFunc,aFunc,operatorFree,repMade,repCanBindInducer,inducerReleases,cAMPHigh};
+}
+
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs){const e=document.createElementNS(NS,tag);for(const[k,v] of Object.entries(attrs))e.setAttribute(k,v);return e;}
+function svgTxt(x,y,str,fs,fw,fill,anchor){const t=el('text',{x,y,'font-size':fs||11,'font-weight':fw||400,fill:fill||'var(--color-text-secondary)','text-anchor':anchor||'middle','dominant-baseline':'central','font-family':'var(--font-sans,sans-serif)'});t.textContent=str;return t;}
+function svgRect(x,y,w,h,rx,fill,stroke,sw){return el('rect',{x,y,width:w,height:h,rx:rx||4,fill:fill||'none',stroke:stroke||'none','stroke-width':sw||0.5});}
+
+const COL={on:{fill:'#E1F5EE',stroke:'#1D9E75',text:'#0F6E56'},off:{fill:'#FCEBEB',stroke:'#E24B4A',text:'#A32D2D'},partial:{fill:'#FAEEDA',stroke:'#EF9F27',text:'#633806'},neutral:{fill:'var(--color-background-secondary)',stroke:'var(--color-border-tertiary)',text:'var(--color-text-secondary)'},gene:{fill:'#E6F1FB',stroke:'#378ADD',text:'#185FA5'}};
+
+function drawBaseOperon(){
+  const svg=document.getElementById('oSvg');
+  while(svg.firstChild)svg.removeChild(svg.firstChild);
+  const defs=el('defs',{});
+  const mk=el('marker',{id:'arr',viewBox:'0 0 10 10',refX:'8',refY:'5',markerWidth:'5',markerHeight:'5',orient:'auto-start-reverse'});
+  const mp=el('path',{d:'M2 1L8 5L2 9',fill:'none',stroke:'context-stroke','stroke-width':'1.5','stroke-linecap':'round','stroke-linejoin':'round'});
+  mk.appendChild(mp);defs.appendChild(mk);svg.appendChild(defs);
+
+  const dnaY=110,dnaH=24;
+  svg.appendChild(el('line',{x1:10,y1:dnaY+dnaH/2,x2:510,y2:dnaY+dnaH/2,stroke:'var(--color-border-secondary)','stroke-width':'1.2'}));
+
+  const regions=[
+    {x:10, w:56,label:'lacI', sub:'repressor',col:'gene'},
+    {x:72, w:28,label:'Pᵢ',  sub:'prom.',    col:'neutral'},
+    {x:106,w:48,label:'CAP', sub:'site',      col:'neutral'},
+    {x:160,w:32,label:'P',   sub:'prom.',     col:'neutral'},
+    {x:198,w:34,label:S.lacO==='c'?'Oᶜ':'O', sub:'operator', col:'neutral'},
+    {x:238,w:78,label:'lacZ',sub:'β-gal',     col:'gene'},
+    {x:322,w:72,label:'lacY',sub:'permease',  col:'gene'},
+    {x:400,w:72,label:'lacA',sub:'acetylase', col:'gene'},
+  ];
+  regions.forEach(r=>{
+    const c=COL[r.col];
+    svg.appendChild(svgRect(r.x,dnaY,r.w,dnaH,4,c.fill,c.stroke,0.5));
+    svg.appendChild(svgTxt(r.x+r.w/2,dnaY+8,r.label,10,500,c.text));
+    svg.appendChild(svgTxt(r.x+r.w/2,dnaY+dnaH+10,r.sub,8,400,'var(--color-text-secondary)'));
+  });
+
+  svg.appendChild(svgTxt(280,dnaY-14,'3\u0027',8,400,'var(--color-text-secondary)'));
+  svg.appendChild(svgTxt(10,dnaY-14,'5\u0027',8,400,'var(--color-text-secondary)'));
+  svg.appendChild(el('line',{x1:20,y1:dnaY-10,x2:500,y2:dnaY-10,stroke:'var(--color-border-tertiary)','stroke-width':'0.5','stroke-dasharray':'2 3'}));
+}
+
+function runSim(){
+  drawBaseOperon();
+  const res=compute();
+  const svg=document.getElementById('oSvg');
+  const dnaY=110,dnaH=24;
+
+  const regions=[
+    {x:10, w:56},{x:72,w:28},{x:106,w:48},
+    {x:160,w:32},{x:198,w:34},{x:238,w:78},{x:322,w:72},{x:400,w:72}
+  ];
+
+  const stepDelay=500;
+  const steps=[];
+
+  steps.push(()=>{
+    const c=res.repMade?COL.neutral:COL.off;
+    const r=regions[0];
+    svg.querySelector && null;
+    const existing=svg.querySelectorAll('[data-anim]');
+    const lacIrect=svgRect(r.x,dnaY,r.w,dnaH,4,c.fill,c.stroke,0.5);
+    lacIrect.setAttribute('data-anim','1');
+    svg.appendChild(lacIrect);
+    svg.appendChild(svgTxt(r.x+r.w/2,dnaY+8,S.lacI==='minus'?'lacI⁻':'lacI',10,500,c.text));
+    setStep(res.repMade?'Step 1: lacI gene transcribed — repressor protein made':'Step 1: lacI⁻ — no functional repressor produced');
+  });
+
+  steps.push(()=>{
+    const repC=res.repBound?COL.off:res.repMade?COL.neutral:COL.neutral;
+    const repLabel=S.lacI==='minus'?'I⁻ (absent)':S.lacI==='s'?'Iˢ (locked)':'Repressor';
+    const rg=el('g',{});
+    rg.appendChild(svgRect(156,58,84,22,5,repC.fill,repC.stroke,0.5));
+    rg.appendChild(svgTxt(198,69,repLabel,9,500,repC.text));
+    rg.style.opacity='0';
+    rg.style.transition='opacity .4s';
+    svg.appendChild(rg);
+    setTimeout(()=>rg.style.opacity='1',50);
+
+    const operC=res.repBound?COL.off:COL.on;
+    const or=regions[4];
+    svg.appendChild(svgRect(or.x,dnaY,or.w,dnaH,4,operC.fill,operC.stroke,0.5));
+    svg.appendChild(svgTxt(or.x+or.w/2,dnaY+8,S.lacO==='c'?'Oᶜ':'O',10,500,operC.text));
+
+    if(res.repBound){
+      const ln=el('line',{x1:215,y1:80,x2:215,y2:dnaY,stroke:COL.off.stroke,'stroke-width':'1.5','marker-end':'url(#arr)'});
+      svg.appendChild(ln);
+      setStep('Step 2: Repressor binds operator — transcription blocked');
+    } else if(!res.repMade){
+      setStep('Step 2: No repressor made (I⁻) — operator is free');
+    } else if(res.inducerReleases){
+      const allo=el('g',{});
+      allo.appendChild(svgRect(140,40,62,16,4,'#FAEEDA','#EF9F27',0.5));
+      allo.appendChild(svgTxt(171,48,'allolactose',8,400,'#633806'));
+      const dln=el('line',{x1:171,y1:56,x2:192,y2:58,stroke:'#EF9F27','stroke-width':'1','stroke-dasharray':'2 2','marker-end':'url(#arr)'});
+      allo.appendChild(dln);
+      svg.appendChild(allo);
+      setStep('Step 2: Allolactose binds repressor → repressor released from operator');
+    } else {
+      setStep('Step 2: Operator free — repressor not bound');
+    }
+  });
+
+  steps.push(()=>{
+    const cR=regions[2];
+    const capC=res.capBound?COL.on:COL.neutral;
+    const capLabel=S.glc?'CAP inactive':S.lacP==='minus'?'CAP (P⁻)':'CAP·cAMP';
+    svg.appendChild(svgRect(cR.x,dnaY,cR.w,dnaH,4,capC.fill,capC.stroke,0.5));
+    svg.appendChild(svgTxt(cR.x+cR.w/2,dnaY+8,capLabel,9,500,capC.text));
+
+    const capBox=el('g',{});
+    capBox.appendChild(svgRect(96,58,76,22,5,capC.fill,capC.stroke,0.5));
+    capBox.appendChild(svgTxt(134,69,capLabel,9,500,capC.text));
+    capBox.style.opacity='0';capBox.style.transition='opacity .4s';
+    svg.appendChild(capBox);
+    setTimeout(()=>capBox.style.opacity='1',50);
+
+    if(res.capBound){
+      const ln=el('line',{x1:134,y1:80,x2:134,y2:dnaY,stroke:COL.on.stroke,'stroke-width':'1.5','marker-end':'url(#arr)'});
+      svg.appendChild(ln);
+      setStep('Step 3: No glucose → high cAMP → CAP·cAMP binds — promoter strongly activated');
+    } else {
+      setStep('Step 3: Glucose present → low cAMP → CAP inactive — no positive activation');
+    }
+  });
+
+  steps.push(()=>{
+    const pR=regions[3];
+    if(S.lacP==='minus'){
+      svg.appendChild(svgRect(pR.x,dnaY,pR.w,dnaH,4,COL.off.fill,COL.off.stroke,0.5));
+      svg.appendChild(svgTxt(pR.x+pR.w/2,dnaY+8,'P⁻',10,500,COL.off.text));
+      setStep('Step 4: P⁻ promoter — RNA polymerase cannot bind. No transcription possible.');
+      return;
+    }
+    if(res.polBound){
+      svg.appendChild(svgRect(pR.x,dnaY,pR.w,dnaH,4,COL.on.fill,COL.on.stroke,0.5));
+      svg.appendChild(svgTxt(pR.x+pR.w/2,dnaY+8,'P',10,500,COL.on.text));
+      const polG=el('g',{});
+      polG.style.cssText='animation:polSlide 2.4s linear infinite';
+      polG.appendChild(svgRect(152,62,52,18,5,COL.on.fill,COL.on.stroke,0.5));
+      polG.appendChild(svgTxt(178,71,'RNA Pol →',9,500,COL.on.text));
+      svg.appendChild(polG);
+      setStep('Step 4: RNA polymerase binds promoter and begins transcription →');
+    } else {
+      svg.appendChild(svgRect(pR.x,dnaY,pR.w,dnaH,4,COL.neutral.fill,COL.neutral.stroke,0.5));
+      const polG=el('g',{});
+      polG.appendChild(svgRect(152,62,52,18,5,'var(--color-background-secondary)','var(--color-border-tertiary)',0.5));
+      polG.appendChild(svgTxt(178,71,'RNA Pol ✕',9,400,'var(--color-text-secondary)'));
+      svg.appendChild(polG);
+      setStep('Step 4: RNA polymerase cannot access promoter — transcription blocked');
+    }
+  });
+
+  steps.push(()=>{
+    if(!res.transcribed){
+      const outcomeEl=document.getElementById('outcome');
+      outcomeEl.className='outcome off show';
+      document.getElementById('otext').textContent='No transcription — lac genes silent';
+      document.getElementById('prods').innerHTML='<span style="font-size:12px;color:var(--color-text-secondary)">No proteins produced</span>';
+      setStep('Result: No mRNA transcribed. No lac proteins made.');
+      document.getElementById('explainBtn').classList.add('visible');
+      hasRun=true;
+      return;
+    }
+
+    const mRNA=el('line',{x1:238,y1:dnaY+dnaH+22,x2:472,y2:dnaY+dnaH+22,stroke:COL.on.stroke,'stroke-width':'2.5','stroke-linecap':'round'});
+    mRNA.style.cssText='animation:mrnaGrow 2.4s linear infinite';
+    svg.appendChild(mRNA);
+
+    const zR=regions[5],yR=regions[6],aR=regions[7];
+    [[zR,'lacZ',res.level],[yR,'lacY',res.level],[aR,'lacA',res.level]].forEach(([r,lbl,lv])=>{
+      const c=COL[lv];
+      svg.appendChild(svgRect(r.x,dnaY,r.w,dnaH,4,c.fill,c.stroke,0.5));
+      svg.appendChild(svgTxt(r.x+r.w/2,dnaY+8,lbl,10,500,c.text));
+    });
+
+    svg.appendChild(svgTxt(355,dnaY+dnaH+32,'mRNA',8,400,COL.on.text));
+
+    const arrowOut=el('line',{x1:472,y1:dnaY+dnaH+22,x2:500,y2:dnaY+dnaH+22,stroke:COL.on.stroke,'stroke-width':'1.5','marker-end':'url(#arr)'});
+    svg.appendChild(arrowOut);
+
+    const level=res.level;
+    setStep(level==='on'?'Step 5: Full mRNA transcribed — lacZ, lacY, lacA translated into proteins':'Step 5: mRNA transcribed at low (basal) level — limited protein produced');
+
+    const pr=document.getElementById('prods');
+    pr.innerHTML='';
+
+    const makeProduct=(name,functional,delay)=>{
+      const pill=document.createElement('div');
+      pill.className='prod-pill'+(functional?'':' dead');
+      pill.textContent=functional?name:name+' (non-functional)';
+      pr.appendChild(pill);
+      setTimeout(()=>pill.classList.add('show'),delay);
+    };
+
+    setTimeout(()=>{
+      makeProduct('β-galactosidase (lacZ)',res.zFunc,100);
+      makeProduct('Permease (lacY)',res.yFunc,260);
+      makeProduct('Transacetylase (lacA)',res.aFunc,420);
+
+      const outcomes=[];
+      if(!res.yFunc) outcomes.push('Lactose cannot enter cell (Y⁻)');
+      if(!res.zFunc) outcomes.push('Lactose not cleaved (Z⁻)');
+
+      if(outcomes.length){
+        setTimeout(()=>{
+          const note=document.createElement('div');
+          note.style.cssText='font-size:11px;color:#A32D2D;margin-top:6px;width:100%';
+          note.textContent='Note: '+outcomes.join('; ');
+          pr.appendChild(note);
+        },600);
+      }
+
+      const ob=document.getElementById('outcome');
+      ob.className='outcome '+level+' show';
+      document.getElementById('otext').textContent=level==='on'?'High transcription — lac genes fully expressed':'Low (basal) transcription — minimal expression';
+      document.getElementById('explainBtn').classList.add('visible');
+      hasRun=true;
+    },400);
+  });
+
+  let i=0;
+  function nextStep(){
+    if(i<steps.length){steps[i]();i++;setTimeout(nextStep,stepDelay);}
+  }
+  nextStep();
+}
+
+function setStep(msg){
+  document.getElementById('stepLog').textContent=msg;
+}
+
+function showExplain(){
+  const res=compute();
+  const {lac,glc,lacI,lacP,lacO,lacZ,lacY,lacA}=S;
+
+  let title='',body='',tags=[];
+
+  const level=res.level;
+  const inducible=lacI!=='s' && lacO!=='c';
+  const isConstitutive=lacI==='minus'||lacO==='c';
+  const isAlwaysOff=lacI==='s'||lacP==='minus';
+
+  if(lacP==='minus'){
+    title='Transcription impossible — P⁻ promoter deletion';
+    body='The promoter (lacP) is mutated so RNA polymerase cannot recognise the –35 and –10 elements and bind. No transcription can occur regardless of repressor, CAP, or lactose status. This is a cis-acting mutation — it only affects genes on the same DNA molecule.';
+    tags=[{text:'Cis-acting',cls:'tag-blue'},{text:'Always off',cls:'tag-red'},{text:'Negative control broken',cls:'tag-red'}];
+  } else if(lacI==='s'){
+    title='Super-repressor — permanently repressed';
+    body='The Iˢ super-repressor has a mutation in its inducer-binding domain. Allolactose cannot bind and release it from the operator. The operator is permanently occupied, blocking RNA polymerase access. This operon is constitutively off — it cannot respond to lactose induction. This is a trans-acting, dominant mutation.';
+    tags=[{text:'Trans-acting (dominant)',cls:'tag-red'},{text:'Always off',cls:'tag-red'},{text:'Negative control',cls:'tag-blue'},{text:'Not inducible',cls:'tag-red'}];
+  } else if(lacI==='minus' || lacO==='c'){
+    const why=lacI==='minus'?'no repressor protein is made (I⁻)':'the operator sequence is mutated so the repressor cannot bind (Oᶜ)';
+    const cisOrTrans=lacI==='minus'?'trans-acting (can be complemented in a merodiploid)':'cis-acting (only affects genes on the same molecule)';
+    title='Constitutive expression — '+(lacI==='minus'?'I⁻ mutation':'Oᶜ mutation');
+    body=`The lac operon is constitutively derepressed because ${why}. Negative control (repression) is non-functional. The operon transcribes lacZ, lacY, and lacA regardless of whether lactose is present. ${glc?'Glucose is present, so CAP activation is absent — expression is at basal level.':'No glucose means high cAMP and CAP activation, boosting transcription.'} This mutation is ${cisOrTrans}.`;
+    tags=[{text:lacI==='minus'?'Trans-acting':'Cis-acting',cls:'tag-blue'},{text:'Constitutive',cls:'tag-amber'},{text:'Negative control absent',cls:'tag-red'},{text:glc?'CAP inactive':'CAP active',cls:glc?'tag-amber':'tag-green'}];
+  } else {
+    if(!lac && glc){
+      title='Operon off — no lactose, glucose present';
+      body='Both regulatory controls prevent transcription. (1) Negative control: no lactose means no allolactose, so the repressor remains bound to the operator — RNA polymerase is blocked. (2) Positive control: glucose is present, so cAMP levels are low and CAP cannot activate the promoter. This is the default "off" state. The lac operon is an inducible operon — it is off by default and switched on only when lactose is available and glucose is absent.';
+      tags=[{text:'Inducible operon',cls:'tag-blue'},{text:'Negative control active',cls:'tag-red'},{text:'Positive control inactive',cls:'tag-amber'},{text:'Off',cls:'tag-red'}];
+    } else if(lac && glc){
+      title='Basal (low) transcription — lactose present, glucose present';
+      body='Negative control is relieved: allolactose (a lactose metabolite) binds the repressor, releasing it from the operator. RNA polymerase can now bind the promoter. However, positive control is inactive: glucose keeps cAMP levels low, so CAP cannot bind and activate transcription. The result is low, basal-level expression — enough to produce some β-galactosidase to metabolise any lactose, but the cell preferentially uses glucose (catabolite repression).';
+      tags=[{text:'Catabolite repression',cls:'tag-amber'},{text:'Derepressed',cls:'tag-green'},{text:'CAP inactive',cls:'tag-amber'},{text:'Partial expression',cls:'tag-amber'}];
+    } else if(!lac && !glc){
+      title='Operon off — no lactose, no glucose';
+      body='Despite the absence of glucose (which raises cAMP, activating CAP), the repressor is still bound to the operator because there is no lactose to generate allolactose. Positive control (CAP activation) is in place, but negative control (repressor) overrides it — RNA polymerase cannot bind while the operator is blocked. The operon stays off because there is no substrate to metabolise.';
+      tags=[{text:'Repressor dominant',cls:'tag-red'},{text:'CAP active but blocked',cls:'tag-amber'},{text:'Off',cls:'tag-red'}];
+    } else {
+      title='Maximum expression — lactose present, no glucose';
+      body='Both regulatory signals allow full transcription. (1) Negative control relieved: allolactose binds and releases the repressor from the operator. (2) Positive control active: no glucose raises cAMP, which enables CAP·cAMP to bind the CAP site and strongly stimulate RNA polymerase binding. This is the optimal condition for lac operon expression — the cell needs to metabolise lactose and has no preferred glucose to fall back on. The lac operon is an inducible, negatively-controlled operon with positive CAP activation.';
+      tags=[{text:'Inducible operon',cls:'tag-blue'},{text:'Negative control: derepressed',cls:'tag-green'},{text:'Positive control: CAP active',cls:'tag-green'},{text:'Maximum expression',cls:'tag-green'}];
+    }
+
+    if(lacZ==='minus'||lacY==='minus'||lacA==='minus'){
+      body+='\n\nNote on structural gene mutations: ';
+      if(lacZ==='minus') body+='Z⁻ — even though the gene is transcribed, no functional β-galactosidase is made; lactose cannot be cleaved. ';
+      if(lacY==='minus') body+='Y⁻ — no lactose permease; lactose cannot enter the cell even if transcription occurs. ';
+      if(lacA==='minus') body+='A⁻ — no transacetylase, but this has minimal effect on lactose metabolism. ';
+      body+='These are cis or trans mutations affecting the protein product, not the regulatory mechanism.';
+    }
+  }
+
+  document.getElementById('explTitle').textContent=title;
+  document.getElementById('explBody').innerHTML=body.replace(/\n\n/g,'<br><br>');
+  const tr=document.getElementById('tagRow');
+  tr.innerHTML='';
+  tags.forEach(t=>{const d=document.createElement('div');d.className='tag '+t.cls;d.textContent=t.text;tr.appendChild(d);});
+  document.getElementById('explPanel').classList.add('show');
+}
+
+drawBaseOperon();
+</script>
