@@ -32,6 +32,25 @@
       color: inherit;
     }
 
+    .skip-link {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      z-index: 100;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--asu-maroon);
+      font-weight: 800;
+      text-decoration: none;
+      transform: translateY(-180%);
+      transition: transform .15s ease;
+    }
+
+    .skip-link:focus-visible {
+      transform: translateY(0);
+    }
+
     .site-header {
       border-bottom: 1px solid var(--line);
       background:
@@ -56,6 +75,7 @@
       font-size: clamp(2.25rem, 7vw, 5.25rem);
       line-height: .98;
       letter-spacing: 0;
+      text-wrap: balance;
     }
 
     .intro {
@@ -82,6 +102,7 @@
       font-size: clamp(1.55rem, 3vw, 2rem);
       line-height: 1.1;
       letter-spacing: 0;
+      text-wrap: balance;
     }
 
     .apps-grid {
@@ -137,6 +158,7 @@
       font-size: 1.35rem;
       line-height: 1.15;
       letter-spacing: 0;
+      text-wrap: balance;
     }
 
     .app-content p {
@@ -176,10 +198,25 @@
       text-decoration: none;
     }
 
-    .launch:focus,
+    .launch:focus-visible,
     .launch:hover {
       background: #6b1530;
       border-color: #6b1530;
+    }
+
+    .launch:focus-visible,
+    .skip-link:focus-visible {
+      outline: 3px solid var(--asu-gold);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
 
     .site-footer {
@@ -198,6 +235,7 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header">
     <div class="header-inner">
       <h1>BIO 340: General Genetics Educational Apps</h1>
@@ -205,12 +243,12 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <div class="section-heading">
-      <h2>Available Apps</h2>
+      <h2 id="apps-heading">Available Apps</h2>
     </div>
 
-    <section class="apps-grid" aria-label="Educational apps">
+    <section class="apps-grid" aria-labelledby="apps-heading">
       <article class="app-card">
         <div class="app-visual">
           <div class="topic">Gene Regulation</div>
