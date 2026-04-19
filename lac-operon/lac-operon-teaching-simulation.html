@@ -1,10 +1,31 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lac Operon Simulation</title>
+<script>
+try{document.documentElement.classList.add(window.self!==window.top?'embedded':'top-level');}
+catch(e){document.documentElement.classList.add('embedded');}
+</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:#fff;padding:.6rem .9rem}
+body{font-family:system-ui,sans-serif;background:#fff;padding:0 .9rem .6rem}
+.app-header{position:sticky;top:0;z-index:20;margin:0 -.9rem 10px;padding:11px .9rem;background:rgba(255,255,255,.97);border-bottom:2px solid #8C1D40;box-shadow:0 1px 8px rgba(0,0,0,.08);backdrop-filter:blur(8px)}
+.header-inner{display:grid;grid-template-columns:1fr auto;align-items:start;gap:14px;max-width:1400px;margin:0 auto}
+.title-wrap{min-width:0}
+.app-title{font-size:clamp(1.55rem,3.2vw,2.35rem);line-height:1.02;font-weight:800;color:#8C1D40;letter-spacing:0}
+.copyright{font-size:11.5px;color:#484848;margin-top:3px}
+.subtitle{font-size:clamp(.88rem,1.6vw,1.05rem);font-weight:700;color:#191919;text-align:right;white-space:nowrap}
+.back-link{justify-self:end;border:2px solid #8C1D40;border-radius:6px;padding:6px 10px;color:#8C1D40;background:#fff;font-size:12.5px;font-weight:800;text-decoration:none;line-height:1}
+.back-link:hover,.back-link:focus{background:#8C1D40;color:#fff}
+.header-side{display:grid;justify-items:end;gap:8px}
+.embed-footer{display:none;margin:10px 0 0;padding:8px 0 2px;border-top:1.5px solid #BFBFBF;color:#484848;font-size:11.5px}
+html.embedded .app-header{display:none}
+html.embedded .back-link{display:none}
+html.embedded .embed-footer{display:block}
+html.embedded body{padding-top:.6rem}
 .ctrl-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:9px}
 .ccard{background:#FAFAFA;border:1.5px solid #BFBFBF;border-radius:7px;padding:8px 12px;display:flex;align-items:center;gap:12px}
 .clabel{font-size:13px;font-weight:700;color:#191919;min-width:54px}
@@ -40,6 +61,7 @@ body{font-family:system-ui,sans-serif;background:#fff;padding:.6rem .9rem}
 .xbtn{background:#0077a8;border:2px solid #005580;border-radius:6px;color:#fff;font-size:13px;font-weight:700;padding:8px 15px;cursor:pointer;-webkit-appearance:none;appearance:none;opacity:.35;pointer-events:none;transition:opacity .15s}
 .xbtn.vis{opacity:1;pointer-events:auto}
 .svg-wrap{background:#fff;border:1.5px solid #BFBFBF;border-radius:8px;overflow:hidden;margin-bottom:6px}
+#oSvg{display:block;width:100%;height:auto}
 .outcome{align-items:center;gap:8px;padding:9px 14px;border-radius:6px;font-size:13px;font-weight:600;margin-bottom:7px;border:2px solid transparent;display:none}
 .outcome.vis{display:flex}
 .oc-on{background:#FFC627;color:#191919;border-color:#8C1D40}
@@ -60,10 +82,29 @@ body{font-family:system-ui,sans-serif;background:#fff;padding:.6rem .9rem}
 .tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
 .tag{font-size:12px;font-weight:600;padding:3px 10px;border-radius:16px}
 .tm{background:#8C1D40;color:#fff}.tg{background:#FFC627;color:#191919;border:1px solid #8C1D40}.tn{background:#78BE20;color:#191919}.ty{background:#484848;color:#fff}
+@media (max-width:640px){
+  .header-inner{grid-template-columns:1fr;align-items:start;gap:8px}
+  .subtitle{text-align:left;white-space:normal}
+  .header-side{justify-items:start}
+  .back-link{justify-self:start}
+  .ctrl-row{grid-template-columns:1fr}
+}
 @keyframes popIn{0%{transform:scale(0.4);opacity:0}80%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
 </style>
 </head>
 <body>
+<header class="app-header" aria-label="App header">
+  <div class="header-inner">
+    <div class="title-wrap">
+      <h1 class="app-title">Lac Operon Simulation</h1>
+      <div class="copyright">© 2026 Jessica Ebie</div>
+    </div>
+    <div class="header-side">
+      <div class="subtitle">BIO 340: General Genetics</div>
+      <a class="back-link" href="../index.html">Return to list</a>
+    </div>
+  </div>
+</header>
 <div class="ctrl-row">
   <div class="ccard"><div class="clabel">Lactose</div><div class="tog-row"><div class="ttrack" id="tl"><div class="tknob"></div></div><span class="tval" id="tlv">Absent</span></div></div>
   <div class="ccard"><div class="clabel">Glucose</div><div class="tog-row"><div class="ttrack on" id="tg"><div class="tknob"></div></div><span class="tval" id="tgv">Present</span></div></div>
@@ -109,11 +150,12 @@ body{font-family:system-ui,sans-serif;background:#fff;padding:.6rem .9rem}
     <button class="xbtn" id="xbtn">Explain ↗</button>
   </div>
 </div>
-<div class="svg-wrap"><svg id="oSvg" width="100%" viewBox="0 0 1680 875" style="display:block"></svg></div>
+<div class="svg-wrap"><svg id="oSvg" width="100%" viewBox="0 0 1680 875" preserveAspectRatio="xMidYMid meet"></svg></div>
 <div id="outcome" class="outcome"><div class="odot"></div><span id="otxt"></span></div>
 <div class="steplog" id="slog"></div>
 <div class="prods" id="prods"></div>
 <div class="epanel" id="epanel"><div class="etitle" id="etitle"></div><div class="ebody" id="ebody"></div><div class="tags" id="etags"></div></div>
+<footer class="embed-footer">© 2026 Jessica Ebie</footer>
 
 <script>
 (function(){
@@ -198,7 +240,6 @@ function drawBase(){
   var svg=document.getElementById('oSvg');while(svg.firstChild)svg.removeChild(svg.firstChild);addDefs(svg);
   svg.appendChild(Ln(14,DY+DH/2,622,DY+DH/2,'#191919','3'));
   RG.forEach(function(r,idx){var m=mutLbl(idx),lbl=m?m.lbl:r.lbl,sub=m?m.sub:r.sub;svg.appendChild(Rx(r.x,DY,r.w,DH,5,r.col));svg.appendChild(T(r.x+r.w/2,DY+19,lbl,14,700,r.col.t));svg.appendChild(T(r.x+r.w/2,SR[idx],sub,10,400,'#191919'));});
-  svg.appendChild(T(955,488,'© 2026 Jessica Ebie',9,400,'#191919','end'));
 }
 function drawBox(svg,idx,lbl,col){var r=RG[idx];svg.appendChild(Rx(r.x,DY,r.w,DH,5,col));svg.appendChild(T(r.x+r.w/2,DY+19,lbl,14,700,col.t));}
 
