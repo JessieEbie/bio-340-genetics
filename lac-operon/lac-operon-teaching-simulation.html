@@ -277,7 +277,7 @@ function addIsLacOverlay(g){
   g.appendChild(T(RX,RY-56,'Iˢ: deformed pocket — allolactose cannot bind',11,600,'#8C1D40','middle'));
 }
 function repStateLabel(svg,pk,isOc){
-  if(isOc){svg.appendChild(T(RX,RY-60,'Oᶜ: operator mutated',12,600,'#8C1D40','middle'));svg.appendChild(T(RX,RY-44,'repressor cannot bind',11,500,'#8C1D40','middle'));}
+  if(isOc){svg.appendChild(T(RX,RY+OC_FLOAT-58,'Oᶜ: operator mutated',12,600,'#8C1D40','middle'));svg.appendChild(T(RX,RY+OC_FLOAT-42,'repressor cannot bind',11,500,'#8C1D40','middle'));}
   else if(pk==='bnd'){svg.appendChild(T(RX,RY-60,'Shape change:',12,600,'#085041','middle'));svg.appendChild(T(RX,RY-44,'repressor released',11,500,'#085041','middle'));}
   else if(pk==='def'){svg.appendChild(T(RX,RY-60,'Iˢ: deformed pocket',12,600,'#8C1D40','middle'));svg.appendChild(T(RX,RY-44,'allolactose cannot bind',11,500,'#8C1D40','middle'));svg.appendChild(T(RX+50,RY-2,'deformed pocket — cannot bind',11,600,'#8C1D40','start'));}
   else if(pk==='eym'){svg.appendChild(T(RX,RY-60,'Y⁻: no allolactose',12,600,'#8C1D40','middle'));svg.appendChild(T(RX,RY-44,'repressor stays bound',11,500,'#8C1D40','middle'));}
