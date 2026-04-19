@@ -344,8 +344,7 @@ function runSim(){
         return;
       }
       /* Lactose present + I⁺/normal repressor: allolactose binds repressor, which still can't bind Oᶜ.
-         Show allolactose approaching and binding, then "released" label.
-         Repressor stays floating at OC_FLOAT — never clamps. */
+         Repressor stays floating at OC_FLOAT — never clamps, so there is no release event. */
       if(ST.i!=='s'){
         /* Allolactose slides in and binds at OC_FLOAT height */
         W(800,function(){if(!alive())return;
@@ -362,15 +361,7 @@ function runSim(){
         W(3800,function(){if(!alive())return;
           rm(rG);rG=el('g',{});rG.style.transform='translateY('+(OC_FLOAT*S)+'px)';repBody(rG,'bnd');svg.appendChild(rG);rm(aG);aG=null;
           W(1000,function(){if(!alive()||!rG)return;
-            /* Repressor drifts away — cannot clamp Oᶜ operator */
-            rG.style.transition='transform '+(1.5*SPEED)+'s ease-in-out, opacity '+(1.5*SPEED)+'s ease';
-            rG.style.transform='translateY('+(OC_FLOAT*S-40*S)+'px)';rG.style.opacity='0.15';
-            var pill=el('g',{});
-            pill.appendChild(Rx(RX-44,RY+OC_FLOAT-8,88,22,8,{f:'#E1F5EE',s:'#085041',t:'#085041'}));
-            pill.appendChild(T(RX,RY+OC_FLOAT+3,'released ↑ (Oᶜ)',11,600,'#085041'));
-            svg.appendChild(pill);fifo(pill,0.5,2500,0.8);
-            slog('Step 2: Repressor released — operator Oᶜ stays open regardless');
-            /* Show Oᶜ label after release */
+            slog('Step 2: Allolactose bound repressor — Oᶜ was already open because repressor never bound the operator');
             W(400,function(){if(!alive())return;slG=el('g',{});slG.style.opacity='0';repStateLabel(slG,'emp',true);svg.appendChild(slG);fi(slG,0.5);});
           });
         });
