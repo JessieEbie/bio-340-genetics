@@ -109,7 +109,6 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
       gap: 18px;
-      max-width: 560px;
     }
 
     .app-card {
@@ -136,6 +135,12 @@
       align-content: end;
     }
 
+    .app-visual.review-visual {
+      background:
+        linear-gradient(135deg, rgba(140, 29, 64, .94), rgba(25, 25, 25, .78)),
+        url("https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80") center / cover;
+    }
+
     .topic {
       width: fit-content;
       max-width: 100%;
@@ -150,6 +155,9 @@
     }
 
     .app-content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
       padding: 20px;
     }
 
@@ -196,6 +204,28 @@
       color: #fff;
       font-weight: 800;
       text-decoration: none;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .card-actions .launch {
+      margin-top: 0;
+    }
+
+    .launch.secondary {
+      background: #fff;
+      color: var(--asu-maroon);
+    }
+
+    .launch.secondary:focus-visible,
+    .launch.secondary:hover {
+      background: var(--soft);
+      color: #6b1530;
     }
 
     .launch:focus-visible,
@@ -261,7 +291,28 @@
             <span class="tag">Structural genes</span>
             <span class="tag">Expression outcomes</span>
           </div>
-          <a class="launch" href="lac-operon/lac-operon-teaching-simulation.html">Launch simulation</a>
+          <div class="card-actions">
+            <a class="launch" href="lac-operon/lac-operon-teaching-simulation.html">Launch simulation</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="app-card">
+        <div class="app-visual review-visual">
+          <div class="topic">Course Preparation</div>
+        </div>
+        <div class="app-content">
+          <h3>Pre-Course Review</h3>
+          <p>Recall material from BIO 181 and BIO 182, work through practice questions, and notice which topics may be worth revisiting.</p>
+          <div class="app-meta" aria-label="App topics">
+            <span class="tag">Probability</span>
+            <span class="tag">DNA, RNA, and proteins</span>
+            <span class="tag">Cell division</span>
+          </div>
+          <div class="card-actions">
+            <a class="launch" href="pre-course-review/index.html">Start review</a>
+            <a class="launch secondary" href="resources/BIO-340-Genetics-Preparation-Guide.pdf" download>Download guide</a>
+          </div>
         </div>
       </article>
     </section>

@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Jessie Ebie">
+  <meta name="description" content="A short, ungraded review of introductory biology material students will use in BIO 340 General Genetics.">
+  <title>Preparing for BIO 340</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --asu-maroon: #8c1d40;
+      --asu-maroon-dark: #6b1530;
+      --asu-gold: #ffc627;
+      --ink: #191919;
+      --muted: #5f5f5f;
+      --line: #b8b8b8;
+      --paper: #fff;
+      --soft: #f5f5f5;
+      --correct: #146c43;
+      --correct-soft: #e8f5ee;
+      --review: #7a4d00;
+      --review-soft: #fff5d8;
+      --shadow: 0 12px 30px rgba(25, 25, 25, .09);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Neue Haas Grotesk Text", "Neue Haas Grotesk Display", Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--asu-maroon);
+      font-weight: 700;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 100;
+      padding: 10px 14px;
+      border-radius: 6px;
+      background: #fff;
+      color: var(--asu-maroon);
+      font-weight: 800;
+      text-decoration: none;
+      transform: translateY(-180%);
+      transition: transform .15s ease;
+    }
+
+    .skip-link:focus-visible {
+      transform: translateY(0);
+    }
+
+    .site-header {
+      border-bottom: 5px solid var(--asu-gold);
+      background: linear-gradient(125deg, var(--asu-maroon), #541226 70%, #251318);
+      color: #fff;
+    }
+
+    .header-inner,
+    main,
+    .footer-inner {
+      width: min(1040px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      padding: 22px 0 40px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      margin-bottom: 28px;
+      color: #fff;
+      text-underline-offset: 4px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      text-wrap: pretty;
+    }
+
+    h1 {
+      max-width: 780px;
+      margin: 0;
+      font-size: clamp(2.25rem, 6vw, 4.5rem);
+      line-height: 1;
+      text-wrap: balance;
+    }
+
+    .subtitle {
+      max-width: 720px;
+      margin: 18px 0 0;
+      color: rgba(255, 255, 255, .92);
+      font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+    }
+
+    main {
+      padding: 38px 0 64px;
+    }
+
+    .intro-panel {
+      max-width: 840px;
+      margin-bottom: 34px;
+      border-left: 6px solid var(--asu-gold);
+      padding: 4px 0 4px 22px;
+    }
+
+    .intro-panel h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.6rem, 3vw, 2.15rem);
+      line-height: 1.15;
+    }
+
+    .intro-panel p {
+      margin: 8px 0;
+    }
+
+    .quiet-note {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .resource-panel {
+      max-width: 840px;
+      margin: 0 0 38px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 22px;
+      background: var(--soft);
+    }
+
+    .resource-panel h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.35rem, 3vw, 1.7rem);
+      line-height: 1.2;
+    }
+
+    .resource-panel p {
+      max-width: 720px;
+      margin: 0;
+    }
+
+    .resource-panel .actions {
+      margin-top: 18px;
+    }
+
+    .resource-panel .text-link {
+      align-self: center;
+      padding: 8px 4px;
+      text-underline-offset: 3px;
+    }
+
+    .explainer-panel {
+      max-width: 840px;
+      margin: 0 0 28px;
+      border-top: 4px solid var(--asu-maroon);
+      border-bottom: 1px solid var(--line);
+      padding: 24px 0 28px;
+    }
+
+    .explainer-panel h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.55rem, 3vw, 2rem);
+      line-height: 1.15;
+    }
+
+    .explainer-panel > p {
+      max-width: 750px;
+      margin: 0 0 18px;
+    }
+
+    .explainer-panel label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 800;
+    }
+
+    .question-entry {
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    .question-entry input {
+      flex: 1;
+      min-width: 0;
+      min-height: 46px;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      padding: 9px 12px;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .question-entry input:focus {
+      border-color: var(--asu-maroon);
+    }
+
+    .suggestion-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .suggestion {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 11px;
+      background: #fff;
+      color: var(--asu-maroon);
+      cursor: pointer;
+      font-size: .9rem;
+      font-weight: 750;
+    }
+
+    .suggestion:hover {
+      border-color: var(--asu-maroon);
+      background: var(--soft);
+    }
+
+    .explanation-result {
+      margin-top: 18px;
+      border-left: 6px solid var(--asu-gold);
+      padding: 14px 16px;
+      background: var(--soft);
+    }
+
+    .explanation-result h3 {
+      margin: 0 0 5px;
+      font-size: 1.15rem;
+    }
+
+    .explanation-result p {
+      margin: 0;
+    }
+
+    .accuracy-note {
+      max-width: 840px;
+      margin: 0 0 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px 20px;
+      background: #fff;
+    }
+
+    .accuracy-note h2 {
+      margin: 0 0 6px;
+      font-size: 1.2rem;
+    }
+
+    .accuracy-note p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .topic-section h2,
+    .quiz-card h2,
+    .results-card h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.55rem, 3vw, 2rem);
+      line-height: 1.15;
+    }
+
+    .section-intro {
+      max-width: 720px;
+      margin: 0 0 20px;
+      color: var(--muted);
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .topic-button {
+      min-height: 118px;
+      border: 2px solid var(--line);
+      border-radius: 10px;
+      padding: 18px;
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+    }
+
+    .topic-button:hover {
+      border-color: var(--asu-maroon);
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .topic-button strong,
+    .topic-button span {
+      display: block;
+    }
+
+    .topic-button strong {
+      margin-bottom: 5px;
+      font-size: 1.12rem;
+      line-height: 1.25;
+    }
+
+    .topic-button span {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .topic-button.featured {
+      grid-column: 1 / -1;
+      min-height: 100px;
+      border-color: var(--asu-maroon);
+      background: var(--asu-maroon);
+      color: #fff;
+    }
+
+    .topic-button.featured span {
+      color: rgba(255, 255, 255, .88);
+    }
+
+    .topic-button.featured:hover {
+      border-color: var(--asu-maroon-dark);
+      background: var(--asu-maroon-dark);
+    }
+
+    .quiz-card,
+    .results-card {
+      max-width: 820px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: clamp(22px, 4vw, 38px);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .quiz-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 18px;
+    }
+
+    .eyebrow {
+      margin: 0 0 4px;
+      color: var(--asu-maroon);
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .progress-text {
+      flex: 0 0 auto;
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: .94rem;
+      font-weight: 700;
+    }
+
+    fieldset {
+      min-width: 0;
+      margin: 0;
+      border: 0;
+      padding: 0;
+    }
+
+    legend {
+      width: 100%;
+      margin-bottom: 18px;
+      padding: 0;
+      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .answer-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .answer-option {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      min-height: 50px;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      cursor: pointer;
+    }
+
+    .answer-option:hover {
+      border-color: var(--asu-maroon);
+      background: var(--soft);
+    }
+
+    .answer-option:has(input:checked) {
+      border-color: var(--asu-maroon);
+      background: #f9edf1;
+    }
+
+    .answer-option.correct-answer {
+      border-color: var(--correct);
+      background: var(--correct-soft);
+    }
+
+    .answer-option.chosen-incorrect {
+      border-color: var(--review);
+      background: var(--review-soft);
+    }
+
+    .answer-option input {
+      width: 20px;
+      height: 20px;
+      margin: 2px 0 0;
+      accent-color: var(--asu-maroon);
+      flex: 0 0 auto;
+    }
+
+    .answer-option span {
+      flex: 1;
+    }
+
+    .feedback {
+      margin-top: 20px;
+      border-left: 6px solid var(--line);
+      padding: 14px 16px;
+      background: var(--soft);
+    }
+
+    .feedback.correct {
+      border-color: var(--correct);
+      background: var(--correct-soft);
+    }
+
+    .feedback.review {
+      border-color: var(--review);
+      background: var(--review-soft);
+    }
+
+    .feedback strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .feedback p {
+      margin: 0;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      border: 2px solid var(--asu-maroon);
+      border-radius: 8px;
+      padding: 9px 16px;
+      background: var(--asu-maroon);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      border-color: var(--asu-maroon-dark);
+      background: var(--asu-maroon-dark);
+    }
+
+    .button.secondary {
+      background: #fff;
+      color: var(--asu-maroon);
+    }
+
+    .button.secondary:hover {
+      background: var(--soft);
+      color: var(--asu-maroon-dark);
+    }
+
+    .button[disabled] {
+      border-color: #a0a0a0;
+      background: #a0a0a0;
+      color: #fff;
+      cursor: not-allowed;
+    }
+
+    .results-summary {
+      margin: 18px 0;
+      border-left: 6px solid var(--asu-gold);
+      padding: 10px 0 10px 18px;
+      font-size: 1.15rem;
+    }
+
+    .results-summary p {
+      margin: 0;
+    }
+
+    .review-list {
+      display: grid;
+      gap: 10px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .review-list li {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 13px 15px;
+      background: var(--soft);
+    }
+
+    .review-list strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .footer-inner {
+      padding: 22px 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--asu-gold);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 680px) {
+      .question-entry {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .topic-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topic-button.featured {
+        grid-column: auto;
+      }
+
+      .quiz-header {
+        display: block;
+      }
+
+      .progress-text {
+        margin-top: 10px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="back-link" href="../index.html">Back to BIO 340 educational apps</a>
+      <h1>Preparing for BIO 340</h1>
+      <p class="subtitle">A short, ungraded review of introductory biology material you will use in genetics.</p>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="intro-panel" aria-labelledby="welcome-heading">
+      <h2 id="welcome-heading">A little review can help</h2>
+      <p>You do not need to relearn everything from BIO 181 and BIO 182 before class begins. Use this practice to recall a few main ideas and notice any topics you may want to revisit.</p>
+      <p>We will review several of these ideas in BIO 340. This activity is for you, and it is not graded.</p>
+      <p class="quiet-note">Your answers stay in this browser and are not submitted or saved.</p>
+    </section>
+
+    <section class="resource-panel" aria-labelledby="guide-heading">
+      <h2 id="guide-heading">Keep the preparation guide nearby</h2>
+      <p>The guide includes the complete readiness check, answers, and a five-session review plan. You can also use the free OpenStax Biology 2e text when you want another explanation.</p>
+      <div class="actions">
+        <a class="button" href="../resources/BIO-340-Genetics-Preparation-Guide.pdf" download>Download the preparation guide PDF</a>
+        <a class="text-link" href="https://openstax.org/details/books/biology-2e" target="_blank" rel="noopener">Open OpenStax Biology 2e</a>
+      </div>
+    </section>
+
+    <section class="explainer-panel" aria-labelledby="explainer-heading">
+      <h2 id="explainer-heading">Ask about a review idea</h2>
+      <p>Enter a short question about a term or process from the guide. This searches a set of prepared explanations and does not send your question anywhere. It is not a live chatbot.</p>
+      <form id="explainer-form">
+        <label for="concept-question">What would you like explained?</label>
+        <div class="question-entry">
+          <input id="concept-question" name="concept-question" type="text" autocomplete="off" placeholder="For example, explain the product rule" required>
+          <button class="button" type="submit">Show explanation</button>
+        </div>
+      </form>
+      <div class="suggestion-list" aria-label="Example questions">
+        <button class="suggestion" type="button" data-question="Explain the product rule">Product rule</button>
+        <button class="suggestion" type="button" data-question="What are independent events?">Independent events</button>
+        <button class="suggestion" type="button" data-question="What are homologous chromosomes?">Homologous chromosomes</button>
+        <button class="suggestion" type="button" data-question="Explain transcription">Transcription</button>
+      </div>
+      <div class="explanation-result" id="explanation-result" tabindex="-1" aria-live="polite" hidden>
+        <h3 id="explanation-title"></h3>
+        <p id="explanation-text"></p>
+      </div>
+    </section>
+
+    <aside class="accuracy-note" aria-labelledby="accuracy-heading">
+      <h2 id="accuracy-heading">Please check important information</h2>
+      <p>This practice tool was developed with AI assistance and may contain mistakes or oversimplifications. Use it as a starting point, not as the final authority. Check anything that seems wrong against your course materials, the preparation guide, or OpenStax, and bring questions to Dr. Ebie.</p>
+    </aside>
+
+    <section class="topic-section" id="topic-section" aria-labelledby="choose-heading">
+      <h2 id="choose-heading">Choose what you would like to practice</h2>
+      <p class="section-intro">The readiness check includes the twelve questions from the guide. You can also choose one topic or try a mixed set.</p>
+
+      <div class="topic-grid">
+        <button class="topic-button featured" type="button" data-topic="readiness">
+          <strong>Readiness check</strong>
+          <span>Try the twelve questions from the preparation guide</span>
+        </button>
+
+        <button class="topic-button" type="button" data-topic="all">
+          <strong>Mixed practice</strong>
+          <span>Try ten questions selected from all five areas</span>
+        </button>
+
+        <button class="topic-button" type="button" data-topic="probability">
+          <strong>Math and probability</strong>
+          <span>Ten questions on fractions, percentages, ratios, graphs, and probability rules</span>
+        </button>
+
+        <button class="topic-button" type="button" data-topic="molecules">
+          <strong>Bonds and biological molecules</strong>
+          <span>Ten questions on bond types, monomers, polymers, and protein properties</span>
+        </button>
+
+        <button class="topic-button" type="button" data-topic="information">
+          <strong>DNA, RNA, and proteins</strong>
+          <span>Ten questions on DNA and RNA structure, replication, transcription, and translation</span>
+        </button>
+
+        <button class="topic-button" type="button" data-topic="cells">
+          <strong>Cells chromosomes and inheritance</strong>
+          <span>Ten questions on homologous chromosomes, cell division, and genetics terms</span>
+        </button>
+
+        <button class="topic-button" type="button" data-topic="evolution">
+          <strong>Evolution and populations</strong>
+          <span>Ten questions on mutation, variation, and changes in allele frequencies</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="quiz-card" id="quiz-section" aria-labelledby="quiz-heading" hidden>
+      <div class="quiz-header">
+        <div>
+          <p class="eyebrow" id="topic-label"></p>
+          <h2 id="quiz-heading">Practice question</h2>
+        </div>
+        <p class="progress-text" id="progress-text" aria-live="polite"></p>
+      </div>
+
+      <form id="question-form">
+        <fieldset>
+          <legend id="question-text"></legend>
+          <div class="answer-list" id="answer-list"></div>
+        </fieldset>
+
+        <div class="feedback" id="feedback" tabindex="-1" aria-live="polite" hidden></div>
+
+        <div class="actions">
+          <button class="button" id="check-button" type="submit">Check my answer</button>
+          <button class="button" id="next-button" type="button" hidden>Next question</button>
+          <button class="button secondary" id="choose-button" type="button">Choose another topic</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="results-card" id="results-section" aria-labelledby="results-heading" tabindex="-1" hidden>
+      <p class="eyebrow">Review complete</p>
+      <h2 id="results-heading">What to revisit</h2>
+      <div class="results-summary" id="results-summary"></div>
+      <ul class="review-list" id="review-list"></ul>
+      <p>Do not try to relearn everything. Spend a little time with any topics that felt unfamiliar, work a few problems, and bring remaining questions to class.</p>
+      <div class="actions">
+        <button class="button" id="again-button" type="button">Practice these questions again</button>
+        <button class="button secondary" id="topics-button" type="button">Choose another topic</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">BIO 340 General Genetics · Jessie Ebie</div>
+  </footer>
+
+  <script>
+    const topicNames = {
+      probability: "Math and probability",
+      molecules: "Bonds and biological molecules",
+      information: "DNA, RNA, and proteins",
+      cells: "Cells chromosomes and inheritance",
+      evolution: "Evolution and populations"
+    };
+
+    const questions = [
+      {
+        topic: "probability",
+        readinessOrder: 1,
+        prompt: "Which value is equivalent to 3/8?",
+        choices: ["0.0375", "0.375", "3.75", "37.5"],
+        answer: 1,
+        feedback: "Review converting among fractions, decimals, and percentages. Three divided by eight is 0.375, or 37.5 percent."
+      },
+      {
+        topic: "probability",
+        readinessOrder: 2,
+        prompt: "A fair coin is flipped three times. What is the probability of getting heads all three times?",
+        choices: ["1/2", "1/4", "1/8", "3/8"],
+        answer: 2,
+        feedback: "Review the product rule for independent events. Multiply 1/2 × 1/2 × 1/2 to get 1/8."
+      },
+      {
+        topic: "probability",
+        readinessOrder: 3,
+        prompt: "In an Aa × Aa cross, what is the probability that an offspring will have genotype aa?",
+        choices: ["0", "1/4", "1/2", "3/4"],
+        answer: 1,
+        feedback: "Review how alleles separate into gametes and how to combine the probabilities from each parent."
+      },
+      {
+        topic: "probability",
+        prompt: "Which rule is most useful for finding the probability that two independent events both occur?",
+        choices: ["Add their probabilities", "Multiply their probabilities", "Subtract the smaller probability", "Average their probabilities"],
+        answer: 1,
+        feedback: "Review the product rule and sum rule. Independent events that must both occur use multiplication."
+      },
+      {
+        topic: "probability",
+        prompt: "Which percentage is equivalent to 0.07?",
+        choices: ["0.7 percent", "7 percent", "17 percent", "70 percent"],
+        answer: 1,
+        feedback: "Review conversions between decimals and percentages. Multiply a decimal by 100 to convert it to a percentage."
+      },
+      {
+        topic: "probability",
+        prompt: "Two outcomes are mutually exclusive. One has probability 0.30 and the other has probability 0.40. What is the probability that either outcome occurs?",
+        choices: ["0.12", "0.35", "0.70", "1.20"],
+        answer: 2,
+        feedback: "Review the sum rule. For mutually exclusive outcomes, add the probabilities because the outcomes cannot happen together."
+      },
+      {
+        topic: "probability",
+        prompt: "What does it mean for two events to be independent?",
+        choices: ["They cannot occur together", "The occurrence of one does not change the probability of the other", "They have equal probabilities", "They must occur in a particular order"],
+        answer: 1,
+        feedback: "Review independent events. Knowing that one event occurred does not change the probability of the other event."
+      },
+      {
+        topic: "probability",
+        prompt: "If 2x = 10, what is x?",
+        choices: ["2", "5", "8", "20"],
+        answer: 1,
+        feedback: "Review rearranging a simple equation. Divide both sides by 2 to isolate x."
+      },
+      {
+        topic: "probability",
+        prompt: "A group has a 3 to 1 ratio of purple to white flowers. If there are 80 flowers, how many would be expected to be purple?",
+        choices: ["20", "40", "60", "75"],
+        answer: 2,
+        feedback: "Review ratios and proportions. Three of every four parts are purple, so 3/4 of 80 is 60."
+      },
+      {
+        topic: "probability",
+        prompt: "A graph shows an allele frequency increasing from 0.20 to 0.35. Which statement is supported by the graph alone?",
+        choices: ["The allele became dominant", "The frequency increased by 0.15", "Natural selection caused the change", "Every individual acquired the allele"],
+        answer: 1,
+        feedback: "Review how to read a graph without overinterpreting it. The values show an increase of 0.15, but they do not identify the cause."
+      },
+      {
+        topic: "molecules",
+        prompt: "Which type of bond joins amino acids in a polypeptide?",
+        choices: ["Hydrogen bond", "Peptide bond", "Phosphodiester bond", "Ionic bond"],
+        answer: 1,
+        feedback: "Review the monomers and bonds that make biological polymers. Peptide bonds join amino acids."
+      },
+      {
+        topic: "molecules",
+        readinessOrder: 7,
+        prompt: "Which pair correctly names the covalent bond within a DNA strand and the interaction between complementary bases?",
+        choices: ["Peptide bonds and ionic interactions", "Phosphodiester bonds and hydrogen bonds", "Hydrogen bonds and phosphodiester bonds", "Disulfide bonds and hydrogen bonds"],
+        answer: 1,
+        feedback: "Review DNA structure and bond types. Phosphodiester bonds join nucleotides within a strand, and hydrogen bonds pair complementary bases between strands."
+      },
+      {
+        topic: "molecules",
+        prompt: "Which interaction helps hold complementary DNA bases together across the two strands?",
+        choices: ["Hydrogen bonds", "Peptide bonds", "Phosphodiester bonds", "Glycosidic bonds between strands"],
+        answer: 0,
+        feedback: "Review the interactions that stabilize DNA. Complementary bases form hydrogen bonds across the strands."
+      },
+      {
+        topic: "molecules",
+        readinessOrder: 8,
+        prompt: "An amino acid side chain contains a carboxyl group that is negatively charged near physiological pH. How should the side chain be classified?",
+        choices: ["Nonpolar", "Polar uncharged", "Acidic", "Basic"],
+        answer: 2,
+        feedback: "Review how functional groups and charge help you infer amino acid properties. A negatively charged carboxyl group makes this side chain acidic."
+      },
+      {
+        topic: "molecules",
+        prompt: "What usually happens when amino acid monomers are joined to build a polypeptide?",
+        choices: ["Water is removed during dehydration synthesis", "Water is added during hydrolysis", "Phosphodiester bonds form", "The amino acids become nucleotides"],
+        answer: 0,
+        feedback: "Review monomers, polymers, dehydration synthesis, and hydrolysis. Peptide bonds form as water is removed."
+      },
+      {
+        topic: "molecules",
+        prompt: "What is the monomer used to build DNA and RNA?",
+        choices: ["Amino acid", "Fatty acid", "Nucleotide", "Monosaccharide"],
+        answer: 2,
+        feedback: "Review biological monomers and polymers. Nucleotides are the monomers of nucleic acids."
+      },
+      {
+        topic: "molecules",
+        prompt: "A disulfide bond can form between the side chains of which amino acid?",
+        choices: ["Cysteine", "Glycine", "Lysine", "Aspartate"],
+        answer: 0,
+        feedback: "Review amino acid side chains and protein folding. Two cysteine side chains can form a covalent disulfide bond."
+      },
+      {
+        topic: "molecules",
+        prompt: "Where are nonpolar side chains often found in a soluble protein surrounded by water?",
+        choices: ["Clustered in the protein interior", "Bonded directly to DNA", "Only at the amino end", "Exposed to water on every surface"],
+        answer: 0,
+        feedback: "Review the hydrophobic effect. Nonpolar side chains often cluster away from water in the interior of a soluble protein."
+      },
+      {
+        topic: "molecules",
+        prompt: "A bond with unequal sharing of electrons is usually described as what type of bond?",
+        choices: ["Nonpolar covalent", "Polar covalent", "Peptide", "Disulfide"],
+        answer: 1,
+        feedback: "Review electronegativity and bond polarity. Unequal electron sharing creates partial charges and a polar covalent bond."
+      },
+      {
+        topic: "molecules",
+        prompt: "What determines a protein's primary structure?",
+        choices: ["Its amino acid sequence", "The number of subunits only", "Hydrogen bonds in an alpha helix", "Its location in the cell"],
+        answer: 0,
+        feedback: "Review levels of protein structure. Primary structure is the sequence of amino acids in a polypeptide."
+      },
+      {
+        topic: "information",
+        prompt: "What is the main product of transcription?",
+        choices: ["A DNA molecule", "An RNA molecule", "A polypeptide", "A lipid"],
+        answer: 1,
+        feedback: "Review the central dogma and the roles of replication, transcription, and translation."
+      },
+      {
+        topic: "information",
+        prompt: "What does a ribosome build during translation?",
+        choices: ["A DNA strand", "An RNA transcript", "A polypeptide", "A chromosome"],
+        answer: 2,
+        feedback: "Review translation and the roles of mRNA, tRNA, and ribosomes in building a polypeptide."
+      },
+      {
+        topic: "information",
+        prompt: "How many nucleotides are in one codon?",
+        choices: ["One", "Two", "Three", "Four"],
+        answer: 2,
+        feedback: "Review how the genetic code is read. Each codon is a group of three nucleotides."
+      },
+      {
+        topic: "information",
+        readinessOrder: 10,
+        prompt: "A DNA template strand reads 3′-TAC GGA ACT-5′. Which mRNA sequence would be transcribed?",
+        choices: ["5′-AUG CCU UGA-3′", "5′-TAC GGA ACT-3′", "3′-AUG CCU UGA-5′", "5′-ATG CCT TGA-3′"],
+        answer: 0,
+        feedback: "Review base pairing and strand direction during transcription. RNA is made complementary and antiparallel to the DNA template."
+      },
+      {
+        topic: "information",
+        readinessOrder: 9,
+        prompt: "What is the usual direction of information flow described by the central dogma?",
+        choices: ["Protein to RNA to DNA", "RNA to DNA to protein", "DNA to RNA to protein", "DNA to protein to RNA"],
+        answer: 2,
+        feedback: "Review the central dogma. The usual direction of information flow is DNA to RNA to protein."
+      },
+      {
+        topic: "information",
+        readinessOrder: 6,
+        prompt: "A double-stranded DNA molecule contains 28 percent adenine. What percentages of thymine, guanine, and cytosine should it contain?",
+        choices: ["T 28 percent, G 22 percent, C 22 percent", "T 22 percent, G 28 percent, C 22 percent", "T 28 percent, G 28 percent, C 16 percent", "T 22 percent, G 22 percent, C 28 percent"],
+        answer: 0,
+        feedback: "Review complementary base pairing in double-stranded DNA. Adenine and thymine have equal percentages, as do guanine and cytosine."
+      },
+      {
+        topic: "information",
+        prompt: "Which feature is found in RNA but not in DNA?",
+        choices: ["Uracil", "Thymine", "Deoxyribose", "A double helix in every RNA molecule"],
+        answer: 0,
+        feedback: "Review the differences between DNA and RNA. RNA uses uracil, while DNA uses thymine."
+      },
+      {
+        topic: "information",
+        prompt: "What does it mean that the two strands of DNA are antiparallel?",
+        choices: ["Both strands run 5′ to 3′ in the same direction", "One strand runs 5′ to 3′ while the other runs 3′ to 5′", "The strands have unrelated sequences", "The strands contain different sugars"],
+        answer: 1,
+        feedback: "Review DNA directionality. The two strands run in opposite orientations."
+      },
+      {
+        topic: "information",
+        prompt: "Why is DNA replication described as semiconservative?",
+        choices: ["Only half of each chromosome is copied", "Each new DNA molecule contains one original strand and one newly made strand", "Half of the genes are removed", "Only one DNA strand is used in a cell"],
+        answer: 1,
+        feedback: "Review semiconservative replication. Each copied DNA molecule keeps one parental strand and includes one new strand."
+      },
+      {
+        topic: "information",
+        prompt: "Which statement about a DNA sequence change is most accurate?",
+        choices: ["It always changes the organism's phenotype", "It can affect RNA, amino acid sequence, protein function, or phenotype, but it may have no visible effect", "It always produces a shorter protein", "It can occur only in protein-coding DNA"],
+        answer: 1,
+        feedback: "Review possible consequences of DNA sequence changes. The effect depends on where the change occurs and how it alters gene expression or protein sequence."
+      },
+      {
+        topic: "cells",
+        prompt: "How many daughter cells are usually produced when one parent cell completes mitosis?",
+        choices: ["One", "Two", "Three", "Four"],
+        answer: 1,
+        feedback: "Review the basic outcome of mitosis. One parent cell divides to produce two daughter cells."
+      },
+      {
+        topic: "cells",
+        prompt: "How many cells are usually produced when one parent cell completes meiosis?",
+        choices: ["One", "Two", "Three", "Four"],
+        answer: 3,
+        feedback: "Review the basic outcome of meiosis. One parent cell usually produces four cells after two divisions."
+      },
+      {
+        topic: "cells",
+        prompt: "A parent cell has 18 chromosomes. After mitosis, how many chromosomes should each daughter cell have?",
+        choices: ["9", "18", "36", "The number cannot be predicted"],
+        answer: 1,
+        feedback: "Review how chromosome number changes during cell division. Mitosis usually preserves the chromosome number."
+      },
+      {
+        topic: "cells",
+        prompt: "A parent cell begins meiosis with 18 chromosomes. How many chromosomes should each resulting cell have?",
+        choices: ["9", "18", "27", "36"],
+        answer: 0,
+        feedback: "Review how chromosome number changes during cell division. Meiosis reduces the chromosome number by half."
+      },
+      {
+        topic: "cells",
+        readinessOrder: 5,
+        prompt: "Which statement best describes a pair of homologous chromosomes?",
+        choices: ["They are identical copies made during DNA replication", "They carry the same types of genes but may have different alleles", "They are found only in gametes", "They always carry identical alleles"],
+        answer: 1,
+        feedback: "Review homologous chromosomes and alleles. A homologous pair usually includes one chromosome inherited from each parent. They carry the same genes in the same locations but may carry different alleles."
+      },
+      {
+        topic: "cells",
+        readinessOrder: 4,
+        prompt: "An organism has 18 chromosomes in a body cell. How many chromosomes should each daughter cell have after mitosis, and how many should each resulting cell have after meiosis?",
+        choices: ["18 after mitosis and 9 after meiosis", "9 after mitosis and 18 after meiosis", "18 after both processes", "9 after both processes"],
+        answer: 0,
+        feedback: "Review how chromosome number changes during cell division. Mitosis preserves chromosome number, while meiosis reduces it by half."
+      },
+      {
+        topic: "cells",
+        prompt: "Which statement correctly relates a gene and an allele?",
+        choices: ["A gene is a version of an allele", "An allele is a version of a gene", "Genes are proteins and alleles are chromosomes", "They are unrelated terms"],
+        answer: 1,
+        feedback: "Review basic genetics vocabulary. A gene is a DNA sequence with a biological role, and alleles are different versions of that gene."
+      },
+      {
+        topic: "cells",
+        prompt: "Which choice is a genotype rather than a phenotype?",
+        choices: ["Purple flowers", "Tall stem", "Aa", "Wrinkled seeds"],
+        answer: 2,
+        feedback: "Review genotype and phenotype. Aa describes an allele combination, while the other choices describe observable traits."
+      },
+      {
+        topic: "cells",
+        prompt: "What happens to the two alleles of a gene during Mendel's principle of segregation?",
+        choices: ["They remain together in every gamete", "They separate so each gamete receives one", "They are both removed", "They become identical"],
+        answer: 1,
+        feedback: "Review segregation and meiosis. The two alleles separate as homologous chromosomes separate, so each gamete receives one allele."
+      },
+      {
+        topic: "cells",
+        prompt: "What does Mendel's principle of independent assortment describe?",
+        choices: ["Alleles of different genes can be distributed into gametes independently when the genes assort independently", "Every gene has only two alleles", "Dominant alleles always enter the same gamete", "Sister chromatids never separate"],
+        answer: 0,
+        feedback: "Review independent assortment. The orientation of one homologous pair does not determine the orientation of another independently assorting pair."
+      },
+      {
+        topic: "evolution",
+        readinessOrder: 12,
+        prompt: "Which process creates a new allele in a population?",
+        choices: ["Mutation", "Natural selection", "Genetic drift", "Nonrandom mating"],
+        answer: 0,
+        feedback: "Review the sources of genetic variation. Mutation changes DNA sequence and can create a new allele."
+      },
+      {
+        topic: "evolution",
+        readinessOrder: 11,
+        prompt: "Which statement about a dominant allele is accurate?",
+        choices: ["It is always the most common allele", "It is always beneficial", "Its phenotype can appear in a heterozygote", "It replaces recessive alleles over time"],
+        answer: 2,
+        feedback: "Review dominance as a relationship between alleles. Dominance does not tell you whether an allele is common or beneficial."
+      },
+      {
+        topic: "evolution",
+        prompt: "What changes when a population evolves?",
+        choices: ["An individual changes its inherited traits", "Allele frequencies change across generations", "Every organism develops a useful mutation", "The population always becomes more complex"],
+        answer: 1,
+        feedback: "Review evolution at the population level. A population evolves when allele frequencies change across generations."
+      },
+      {
+        topic: "evolution",
+        prompt: "Which process can change allele frequencies simply by chance, especially in a small population?",
+        choices: ["Genetic drift", "Translation", "DNA replication", "Dominance"],
+        answer: 0,
+        feedback: "Review the main mechanisms that change allele frequencies. Genetic drift is change caused by chance."
+      },
+      {
+        topic: "evolution",
+        prompt: "What is gene flow?",
+        choices: ["Movement of alleles between populations when individuals or gametes move", "A random change caused by sampling", "The creation of a new allele by mutation", "The conversion of DNA into RNA"],
+        answer: 0,
+        feedback: "Review gene flow. Movement between populations can introduce alleles and change allele frequencies."
+      },
+      {
+        topic: "evolution",
+        prompt: "Which description best fits natural selection?",
+        choices: ["A completely random change in allele frequency", "Individuals with some heritable traits leave more offspring on average in a particular environment", "An individual changes its genes because it needs to adapt", "Every mutation becomes common"],
+        answer: 1,
+        feedback: "Review natural selection. Heritable differences in survival or reproduction can change allele frequencies across generations."
+      },
+      {
+        topic: "evolution",
+        prompt: "How does recombination usually affect genetic variation?",
+        choices: ["It creates new combinations of existing alleles", "It always creates a new allele", "It removes all variation", "It copies RNA into protein"],
+        answer: 0,
+        feedback: "Review mutation and recombination. Recombination shuffles existing alleles into new combinations, while mutation can create a new allele."
+      },
+      {
+        topic: "evolution",
+        prompt: "Which example describes evolution rather than a change within one individual?",
+        choices: ["A person builds muscle through exercise", "A plant bends toward light", "The frequency of an allele increases across several generations", "A cell produces more protein after a signal"],
+        answer: 2,
+        feedback: "Review the level at which evolution occurs. Evolution involves changes in populations across generations, not changes acquired by one individual."
+      },
+      {
+        topic: "evolution",
+        prompt: "A storm randomly leaves only a few individuals in a population. Their allele frequencies differ from the original population. Which process is this?",
+        choices: ["Genetic drift", "Translation", "Independent assortment", "Dominance"],
+        answer: 0,
+        feedback: "Review genetic drift and population bottlenecks. Chance survival can shift allele frequencies, especially when few individuals remain."
+      },
+      {
+        topic: "evolution",
+        prompt: "Which statement about mutation is most accurate?",
+        choices: ["Mutations occur because an organism needs a particular trait", "Mutation can create new alleles, but whether an allele becomes common depends on other processes", "Every mutation is harmful", "Natural selection creates mutations on demand"],
+        answer: 1,
+        feedback: "Review mutation as a source of new alleles. Mutations do not arise because they would be useful, and their effects can be harmful, neutral, or beneficial."
+      }
+    ];
+
+    const explanations = [
+      {
+        title: "Product rule",
+        keywords: ["product rule", "multiply probabilities", "both events"],
+        text: "Use the product rule when you want the probability that two or more independent events all occur. Multiply their individual probabilities. For three heads in three fair coin flips, multiply 1/2 × 1/2 × 1/2 to get 1/8."
+      },
+      {
+        title: "Independent events",
+        keywords: ["independent events", "independent event"],
+        text: "Events are independent when the outcome of one does not change the probability of the other. Separate coin flips are independent because the result of the first flip does not change the chance of heads on the next flip."
+      },
+      {
+        title: "Sum rule",
+        keywords: ["sum rule", "add probabilities", "either outcome"],
+        text: "Use the sum rule when you want the probability of one outcome or another. If the outcomes are mutually exclusive, add their probabilities."
+      },
+      {
+        title: "Mutually exclusive outcomes",
+        keywords: ["mutually exclusive", "exclusive outcomes"],
+        text: "Mutually exclusive outcomes cannot occur at the same time in the same trial. On one coin flip, heads and tails are mutually exclusive."
+      },
+      {
+        title: "Ratios and proportions",
+        keywords: ["ratio", "proportion"],
+        text: "A ratio compares amounts, while a proportion states that two ratios are equal. In a 3 to 1 ratio, there are four total parts, so the first category represents 3/4 of the total."
+      },
+      {
+        title: "Covalent bonds",
+        keywords: ["covalent bond", "covalent bonds"],
+        text: "A covalent bond forms when atoms share electrons. Peptide, phosphodiester, glycosidic, and disulfide bonds are covalent bonds that help build or stabilize biological molecules."
+      },
+      {
+        title: "Hydrogen bonds",
+        keywords: ["hydrogen bond", "hydrogen bonds"],
+        text: "A hydrogen bond is a weak attraction involving partial charges. Many hydrogen bonds together help stabilize complementary DNA base pairs and protein secondary structure."
+      },
+      {
+        title: "Hydrophobic effect",
+        keywords: ["hydrophobic effect", "hydrophobic", "nonpolar side chain", "nonpolar side chains"],
+        text: "Nonpolar groups do not interact favorably with water. In a soluble protein, nonpolar side chains often cluster in the interior while polar and charged groups are more likely to contact water."
+      },
+      {
+        title: "Dehydration synthesis and hydrolysis",
+        keywords: ["dehydration synthesis", "hydrolysis", "remove water", "add water"],
+        text: "Dehydration synthesis joins monomers while releasing water. Hydrolysis uses water to break a covalent bond and separate parts of a polymer."
+      },
+      {
+        title: "Amino acid side chains",
+        keywords: ["amino acid property", "amino acid properties", "side chain", "r group"],
+        text: "An amino acid's R group determines many of its chemical properties. Look for charge, polar groups, and mostly carbon-hydrogen regions to classify a side chain as acidic, basic, polar uncharged, or nonpolar."
+      },
+      {
+        title: "Protein structure",
+        keywords: ["protein structure", "primary structure", "secondary structure", "tertiary structure", "quaternary structure"],
+        text: "Primary structure is the amino acid sequence. Local backbone interactions form secondary structure, the overall fold of one polypeptide is tertiary structure, and the arrangement of multiple polypeptides is quaternary structure."
+      },
+      {
+        title: "DNA and RNA",
+        keywords: ["dna versus rna", "dna and rna", "difference between dna and rna"],
+        text: "DNA usually contains deoxyribose and thymine and is double stranded. RNA usually contains ribose and uracil and is single stranded, although RNA can fold into complex shapes."
+      },
+      {
+        title: "Complementary base pairing",
+        keywords: ["complementary base", "base pairing", "chargaff"],
+        text: "In double-stranded DNA, A pairs with T and G pairs with C. This means the percentage of A equals T, and the percentage of G equals C."
+      },
+      {
+        title: "Antiparallel strands",
+        keywords: ["antiparallel", "5 prime and 3 prime", "5-prime and 3-prime", "directionality"],
+        text: "The two DNA strands run in opposite directions. One strand runs 5-prime to 3-prime while the other runs 3-prime to 5-prime."
+      },
+      {
+        title: "DNA replication",
+        keywords: ["dna replication", "semiconservative", "replication"],
+        text: "DNA replication copies DNA before cell division. It is semiconservative because each copied DNA molecule contains one original strand and one newly made strand."
+      },
+      {
+        title: "Transcription",
+        keywords: ["transcription", "dna to rna"],
+        text: "During transcription, RNA polymerase uses one DNA strand as a template to build a complementary RNA molecule. The RNA is made 5-prime to 3-prime and is antiparallel to the DNA template."
+      },
+      {
+        title: "Translation",
+        keywords: ["translation", "rna to protein", "ribosome"],
+        text: "During translation, a ribosome reads mRNA codons. tRNAs bring amino acids, and the ribosome joins them into a polypeptide."
+      },
+      {
+        title: "Codons and anticodons",
+        keywords: ["codon", "codons", "anticodon", "anticodons"],
+        text: "A codon is a three-nucleotide sequence in mRNA. A tRNA anticodon pairs with a codon and helps place the corresponding amino acid in the growing polypeptide."
+      },
+      {
+        title: "Central dogma",
+        keywords: ["central dogma", "information flow"],
+        text: "The usual flow of biological information is DNA to RNA to protein. DNA is transcribed into RNA, and mRNA is translated into a polypeptide."
+      },
+      {
+        title: "Homologous chromosomes",
+        keywords: ["homologous chromosome", "homologous chromosomes", "homologous pair", "homologs"],
+        text: "A homologous pair usually contains one chromosome inherited from each parent. The two chromosomes carry the same genes in the same locations, but they may carry different alleles."
+      },
+      {
+        title: "Mitosis",
+        keywords: ["mitosis"],
+        text: "Mitosis involves one division and usually produces two daughter cells. Each daughter cell has the same chromosome number as the starting cell."
+      },
+      {
+        title: "Meiosis",
+        keywords: ["meiosis"],
+        text: "Meiosis involves two divisions and usually produces four cells. Each resulting cell has half the chromosome number of the starting cell, which is important for gamete production."
+      },
+      {
+        title: "Gene and allele",
+        keywords: ["gene and allele", "gene versus allele", "what is an allele", "allele"],
+        text: "A gene is a DNA sequence with a biological role. Alleles are different versions of the same gene and may produce different effects on a trait."
+      },
+      {
+        title: "Genotype and phenotype",
+        keywords: ["genotype", "phenotype"],
+        text: "A genotype describes an individual's alleles, such as Aa. A phenotype is an observable or measurable trait that can be influenced by genotype and environment."
+      },
+      {
+        title: "Dominant and recessive",
+        keywords: ["dominant", "recessive", "dominance"],
+        text: "Dominant and recessive describe the phenotype of a heterozygote. They do not tell you whether an allele is common, beneficial, stronger, or more likely to be inherited."
+      },
+      {
+        title: "Punnett squares",
+        keywords: ["punnett square", "punnett squares"],
+        text: "A Punnett square organizes possible gamete combinations and their probabilities. It predicts probabilities for offspring, not the guaranteed outcome of a particular family."
+      },
+      {
+        title: "Segregation",
+        keywords: ["principle of segregation", "segregation"],
+        text: "The two alleles of a gene separate during gamete formation because homologous chromosomes separate during meiosis. Each gamete receives one allele."
+      },
+      {
+        title: "Independent assortment",
+        keywords: ["independent assortment", "assortment"],
+        text: "Different homologous chromosome pairs can orient independently during meiosis. As a result, alleles of genes on different chromosomes can enter gametes in many combinations."
+      },
+      {
+        title: "Mutation",
+        keywords: ["mutation", "new allele"],
+        text: "A mutation is a change in DNA sequence and can create a new allele. Mutations do not occur because an organism needs them, and their effects can be harmful, neutral, or beneficial."
+      },
+      {
+        title: "Recombination",
+        keywords: ["recombination", "crossing over"],
+        text: "Recombination shuffles existing alleles into new combinations. Crossing over during meiosis is one source of recombination."
+      },
+      {
+        title: "Natural selection",
+        keywords: ["natural selection", "selection"],
+        text: "Natural selection occurs when individuals with some heritable traits leave more offspring on average in a particular environment. Across generations, this can change allele frequencies."
+      },
+      {
+        title: "Genetic drift",
+        keywords: ["genetic drift", "drift", "bottleneck"],
+        text: "Genetic drift is a change in allele frequencies caused by chance. Its effects are often stronger in small populations."
+      },
+      {
+        title: "Gene flow",
+        keywords: ["gene flow", "migration"],
+        text: "Gene flow is the movement of alleles between populations when individuals or gametes move and reproduce. It can introduce an existing allele into another population."
+      },
+      {
+        title: "Evolution in populations",
+        keywords: ["population evolves", "population evolution", "what is evolution", "allele frequency"],
+        text: "A population evolves when its allele frequencies change across generations. Changes that occur within one individual during its lifetime are not population evolution."
+      }
+    ];
+
+    const topicSection = document.querySelector("#topic-section");
+    const quizSection = document.querySelector("#quiz-section");
+    const resultsSection = document.querySelector("#results-section");
+    const topicLabel = document.querySelector("#topic-label");
+    const progressText = document.querySelector("#progress-text");
+    const questionForm = document.querySelector("#question-form");
+    const questionText = document.querySelector("#question-text");
+    const answerList = document.querySelector("#answer-list");
+    const feedback = document.querySelector("#feedback");
+    const checkButton = document.querySelector("#check-button");
+    const nextButton = document.querySelector("#next-button");
+    const resultsSummary = document.querySelector("#results-summary");
+    const reviewList = document.querySelector("#review-list");
+    const explainerForm = document.querySelector("#explainer-form");
+    const conceptQuestion = document.querySelector("#concept-question");
+    const explanationResult = document.querySelector("#explanation-result");
+    const explanationTitle = document.querySelector("#explanation-title");
+    const explanationText = document.querySelector("#explanation-text");
+
+    let selectedTopic = "all";
+    let activeQuestions = [];
+    let currentIndex = 0;
+    let answers = [];
+
+    function showExplanation(question) {
+      const normalizedQuestion = question.toLowerCase().replace(/[?.,!]/g, " ");
+      let bestMatch = null;
+      let bestScore = 0;
+
+      explanations.forEach((explanation) => {
+        explanation.keywords.forEach((keyword) => {
+          if (normalizedQuestion.includes(keyword) && keyword.length > bestScore) {
+            bestMatch = explanation;
+            bestScore = keyword.length;
+          }
+        });
+      });
+
+      if (bestMatch) {
+        explanationTitle.textContent = bestMatch.title;
+        explanationText.textContent = bestMatch.text;
+      } else {
+        explanationTitle.textContent = "I do not have a prepared explanation for that yet";
+        explanationText.textContent = "Try using a specific term from the preparation guide, such as product rule, hydrogen bonds, transcription, homologous chromosomes, genetic drift, or gene flow. You can also check OpenStax or bring the question to class.";
+      }
+
+      explanationResult.hidden = false;
+      explanationResult.focus();
+    }
+
+    function shuffle(items) {
+      const copy = [...items];
+      for (let index = copy.length - 1; index > 0; index -= 1) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        [copy[index], copy[randomIndex]] = [copy[randomIndex], copy[index]];
+      }
+      return copy;
+    }
+
+    function questionsFor(topic) {
+      if (topic === "readiness") {
+        return questions
+          .filter((question) => question.readinessOrder)
+          .sort((first, second) => first.readinessOrder - second.readinessOrder);
+      }
+
+      if (topic !== "all") {
+        return shuffle(questions.filter((question) => question.topic === topic));
+      }
+
+      return shuffle(Object.keys(topicNames).flatMap((topicName) => {
+        return shuffle(questions.filter((question) => question.topic === topicName)).slice(0, 2);
+      }));
+    }
+
+    function showOnly(section) {
+      topicSection.hidden = section !== topicSection;
+      quizSection.hidden = section !== quizSection;
+      resultsSection.hidden = section !== resultsSection;
+    }
+
+    function startReview(topic) {
+      selectedTopic = topic;
+      activeQuestions = questionsFor(topic);
+      currentIndex = 0;
+      answers = [];
+      showOnly(quizSection);
+      renderQuestion();
+      quizSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      answerList.querySelector("input")?.focus();
+    }
+
+    function renderQuestion() {
+      const question = activeQuestions[currentIndex];
+      topicLabel.textContent = selectedTopic === "all" || selectedTopic === "readiness"
+        ? topicNames[question.topic]
+        : topicNames[selectedTopic];
+      progressText.textContent = `Question ${currentIndex + 1} of ${activeQuestions.length}`;
+      questionText.textContent = question.prompt;
+      answerList.replaceChildren();
+
+      question.choices.forEach((choice, index) => {
+        const label = document.createElement("label");
+        label.className = "answer-option";
+
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = "answer";
+        input.value = String(index);
+
+        const text = document.createElement("span");
+        text.textContent = choice;
+
+        label.append(input, text);
+        answerList.append(label);
+      });
+
+      feedback.hidden = true;
+      feedback.className = "feedback";
+      feedback.replaceChildren();
+      checkButton.hidden = false;
+      nextButton.hidden = true;
+      nextButton.textContent = currentIndex === activeQuestions.length - 1 ? "See what to revisit" : "Next question";
+    }
+
+    function checkAnswer(event) {
+      event.preventDefault();
+      const chosen = questionForm.querySelector('input[name="answer"]:checked');
+
+      if (!chosen) {
+        feedback.className = "feedback review";
+        feedback.innerHTML = "<strong>Choose an answer first.</strong><p>It is fine to make your best guess.</p>";
+        feedback.hidden = false;
+        feedback.focus();
+        return;
+      }
+
+      const question = activeQuestions[currentIndex];
+      const chosenIndex = Number(chosen.value);
+      const isCorrect = chosenIndex === question.answer;
+      answers.push({ topic: question.topic, isCorrect });
+
+      answerList.querySelectorAll("input").forEach((input) => {
+        input.disabled = true;
+      });
+
+      const optionLabels = answerList.querySelectorAll(".answer-option");
+      optionLabels[question.answer].classList.add("correct-answer");
+      if (!isCorrect) {
+        optionLabels[chosenIndex].classList.add("chosen-incorrect");
+      }
+
+      feedback.className = `feedback ${isCorrect ? "correct" : "review"}`;
+      feedback.innerHTML = `<strong>${isCorrect ? "That is right." : "This one may be worth reviewing."}</strong><p>${question.feedback}</p>`;
+      feedback.hidden = false;
+      checkButton.hidden = true;
+      nextButton.hidden = false;
+      feedback.focus();
+    }
+
+    function nextQuestion() {
+      if (currentIndex < activeQuestions.length - 1) {
+        currentIndex += 1;
+        renderQuestion();
+        questionText.scrollIntoView({ behavior: "smooth", block: "center" });
+        answerList.querySelector("input")?.focus();
+        return;
+      }
+
+      showResults();
+    }
+
+    function showResults() {
+      const correctCount = answers.filter((answer) => answer.isCorrect).length;
+      resultsSummary.innerHTML = `<p>You answered <strong>${correctCount} of ${answers.length}</strong> questions correctly. This is only a starting point, not a grade.</p>`;
+      reviewList.replaceChildren();
+
+      const practicedTopics = [...new Set(answers.map((answer) => answer.topic))];
+      practicedTopics.forEach((topic) => {
+        const topicAnswers = answers.filter((answer) => answer.topic === topic);
+        const correct = topicAnswers.filter((answer) => answer.isCorrect).length;
+        const item = document.createElement("li");
+        const heading = document.createElement("strong");
+        const note = document.createElement("span");
+
+        heading.textContent = topicNames[topic];
+        note.textContent = correct === topicAnswers.length
+          ? "These ideas look familiar. A quick review is still welcome if you want one."
+          : `You answered ${correct} of ${topicAnswers.length} correctly. Spend a little time reviewing this area.`;
+
+        item.append(heading, note);
+        reviewList.append(item);
+      });
+
+      showOnly(resultsSection);
+      resultsSection.focus();
+      resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function chooseTopic() {
+      showOnly(topicSection);
+      topicSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.querySelector(".topic-button")?.focus();
+    }
+
+    document.querySelectorAll(".topic-button").forEach((button) => {
+      button.addEventListener("click", () => startReview(button.dataset.topic));
+    });
+
+    explainerForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      showExplanation(conceptQuestion.value.trim());
+    });
+
+    document.querySelectorAll(".suggestion").forEach((button) => {
+      button.addEventListener("click", () => {
+        conceptQuestion.value = button.dataset.question;
+        showExplanation(button.dataset.question);
+      });
+    });
+
+    questionForm.addEventListener("submit", checkAnswer);
+    nextButton.addEventListener("click", nextQuestion);
+    document.querySelector("#choose-button").addEventListener("click", chooseTopic);
+    document.querySelector("#topics-button").addEventListener("click", chooseTopic);
+    document.querySelector("#again-button").addEventListener("click", () => startReview(selectedTopic));
+  </script>
+</body>
+</html>
