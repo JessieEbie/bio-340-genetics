@@ -70,12 +70,18 @@
     }
 
     h1 {
-      max-width: 760px;
       margin: 0;
-      font-size: clamp(2.25rem, 7vw, 5.25rem);
+      font-size: clamp(2.25rem, 6.2vw, 4.75rem);
       line-height: .98;
       letter-spacing: 0;
-      text-wrap: balance;
+    }
+
+    h1 span {
+      display: block;
+    }
+
+    .course-name {
+      white-space: nowrap;
     }
 
     .intro {
@@ -91,10 +97,20 @@
       padding: 38px 0 56px;
     }
 
+    .resource-section + .resource-section {
+      margin-top: 48px;
+    }
+
     .section-heading {
       margin-bottom: 18px;
       border-bottom: 2px solid var(--ink);
       padding-bottom: 10px;
+    }
+
+    .section-heading p {
+      max-width: 760px;
+      margin: 8px 0 0;
+      color: var(--muted);
     }
 
     h2 {
@@ -262,59 +278,95 @@
       font-size: .92rem;
     }
 
+    @media (max-width: 560px) {
+      .header-inner {
+        min-height: 0;
+        padding: 44px 0;
+      }
+
+      h1 {
+        font-size: clamp(2.15rem, 12vw, 3.25rem);
+      }
+
+      .course-name {
+        white-space: normal;
+      }
+
+      .card-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .card-actions .launch {
+        width: 100%;
+      }
+    }
+
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header">
     <div class="header-inner">
-      <h1>BIO 340: General Genetics Educational Apps</h1>
+      <h1><span class="course-name">BIO 340: General Genetics</span><span>Educational Apps</span></h1>
       <p class="intro">Interactive course tools for exploring genetics concepts through simulation, prediction, and visual feedback.</p>
     </div>
   </header>
 
   <main id="main-content" tabindex="-1">
-    <div class="section-heading">
-      <h2 id="apps-heading">Available Apps</h2>
-    </div>
+    <section class="resource-section" aria-labelledby="pre-course-heading">
+      <div class="section-heading">
+        <h2 id="pre-course-heading">Pre-course preparation</h2>
+        <p>Optional resources to help you recall introductory biology material before BIO 340 begins.</p>
+      </div>
 
-    <section class="apps-grid" aria-labelledby="apps-heading">
-      <article class="app-card">
-        <div class="app-visual">
-          <div class="topic">Gene Regulation</div>
-        </div>
-        <div class="app-content">
-          <h3>Lac Operon Simulation</h3>
-          <p>Test lactose and glucose conditions, choose lac operon mutations, run the animation, and compare predicted transcription outcomes.</p>
-          <div class="app-meta" aria-label="App topics">
-            <span class="tag">lacI, lacP, lacO</span>
-            <span class="tag">Structural genes</span>
-            <span class="tag">Expression outcomes</span>
+      <div class="apps-grid">
+        <article class="app-card">
+          <div class="app-visual review-visual">
+            <div class="topic">Course Preparation</div>
           </div>
-          <div class="card-actions">
-            <a class="launch" href="lac-operon/lac-operon-teaching-simulation.html">Launch simulation</a>
+          <div class="app-content">
+            <h3>Pre-Course Review</h3>
+            <p>Recall introductory biology material and basic math skills, work through practice questions, and notice which topics may be worth revisiting.</p>
+            <div class="app-meta" aria-label="App topics">
+              <span class="tag">Probability</span>
+              <span class="tag">DNA, RNA, and proteins</span>
+              <span class="tag">Cell division</span>
+            </div>
+            <div class="card-actions">
+              <a class="launch" href="pre-course-review/index.html">Start review</a>
+              <a class="launch secondary" href="resources/BIO-340-Genetics-Preparation-Guide.pdf" download>Download guide</a>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </div>
+    </section>
 
-      <article class="app-card">
-        <div class="app-visual review-visual">
-          <div class="topic">Course Preparation</div>
-        </div>
-        <div class="app-content">
-          <h3>Pre-Course Review</h3>
-          <p>Recall material from BIO 181 and BIO 182, work through practice questions, and notice which topics may be worth revisiting.</p>
-          <div class="app-meta" aria-label="App topics">
-            <span class="tag">Probability</span>
-            <span class="tag">DNA, RNA, and proteins</span>
-            <span class="tag">Cell division</span>
+    <section class="resource-section" aria-labelledby="enrolled-heading">
+      <div class="section-heading">
+        <h2 id="enrolled-heading">While enrolled in BIO 340</h2>
+        <p>Interactive tools for practicing and exploring ideas from the course.</p>
+      </div>
+
+      <div class="apps-grid">
+        <article class="app-card">
+          <div class="app-visual">
+            <div class="topic">Gene Regulation</div>
           </div>
-          <div class="card-actions">
-            <a class="launch" href="pre-course-review/index.html">Start review</a>
-            <a class="launch secondary" href="resources/BIO-340-Genetics-Preparation-Guide.pdf" download>Download guide</a>
+          <div class="app-content">
+            <h3>Lac Operon Simulation</h3>
+            <p>Test lactose and glucose conditions, choose lac operon mutations, run the animation, and compare predicted transcription outcomes.</p>
+            <div class="app-meta" aria-label="App topics">
+              <span class="tag">lacI, lacP, lacO</span>
+              <span class="tag">Structural genes</span>
+              <span class="tag">Expression outcomes</span>
+            </div>
+            <div class="card-actions">
+              <a class="launch" href="lac-operon/lac-operon-teaching-simulation.html">Launch simulation</a>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </div>
     </section>
   </main>
 

@@ -98,6 +98,15 @@ html.embedded body{padding-top:.6rem}
   .back-link{justify-self:start}
   .ctrl-row{grid-template-columns:1fr}
 }
+@media (max-width:520px){
+  body{padding-right:12px;padding-left:12px;overflow-wrap:break-word}
+  .app-header{margin-right:-12px;margin-left:-12px;padding-right:12px;padding-left:12px}
+  .control-panel,.simulation-panel{padding:12px}
+  .ccard{align-items:flex-start;flex-wrap:wrap;padding:10px}
+  .g3,.scols{grid-template-columns:1fr}
+  .scol-hd{text-align:left}
+  .sim-btns>*{flex:1 1 8rem;justify-content:center}
+}
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
