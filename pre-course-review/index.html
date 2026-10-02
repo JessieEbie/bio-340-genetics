@@ -263,9 +263,10 @@
       max-width: 840px;
       margin: 0 0 38px;
       border: 1px solid var(--line);
+      border-left: 6px solid var(--asu-gold);
       border-radius: 8px;
       padding: 18px 20px;
-      background: #fff;
+      background: var(--review-soft);
     }
 
     .accuracy-note h2 {
@@ -646,6 +647,11 @@
       <p class="quiet-note">Your answers stay in this browser and are not submitted or saved.</p>
     </section>
 
+    <aside class="accuracy-note" aria-labelledby="accuracy-heading">
+      <h2 id="accuracy-heading">A note about AI and accuracy</h2>
+      <p>This practice tool was created with AI assistance. It may contain mistakes or oversimplifications. Use it as a starting point, check important information against your course materials, the preparation guide, or OpenStax, and bring questions to Dr. Ebie.</p>
+    </aside>
+
     <section class="resource-panel" aria-labelledby="guide-heading">
       <h2 id="guide-heading">Keep the preparation guide nearby</h2>
       <p>The guide includes the complete readiness check, answers, and a five-session review plan. You can also use the free OpenStax Biology 2e text when you want another explanation.</p>
@@ -677,19 +683,14 @@
       </div>
     </section>
 
-    <aside class="accuracy-note" aria-labelledby="accuracy-heading">
-      <h2 id="accuracy-heading">Please check important information</h2>
-      <p>This practice tool was developed with AI assistance and may contain mistakes or oversimplifications. Use it as a starting point, not as the final authority. Check anything that seems wrong against your course materials, the preparation guide, or OpenStax, and bring questions to Dr. Ebie.</p>
-    </aside>
-
     <section class="topic-section" id="topic-section" aria-labelledby="choose-heading">
       <h2 id="choose-heading">Choose what you would like to practice</h2>
-      <p class="section-intro">The readiness check includes the twelve questions from the guide. You can also choose one topic or try a mixed set.</p>
+      <p class="section-intro">Each readiness check draws twelve questions from all five review areas. Retake it for a different mix, choose one topic, or try a shorter mixed set.</p>
 
       <div class="topic-grid">
         <button class="topic-button featured" type="button" data-topic="readiness">
           <strong>Readiness check</strong>
-          <span>Try the twelve questions from the preparation guide</span>
+          <span>Try twelve questions drawn from all five review areas</span>
         </button>
 
         <button class="topic-button" type="button" data-topic="all">
@@ -699,27 +700,27 @@
 
         <button class="topic-button" type="button" data-topic="probability">
           <strong>Math and probability</strong>
-          <span>Ten questions on fractions, percentages, ratios, graphs, and probability rules</span>
+          <span>Seven questions drawn from a larger bank on fractions, percentages, ratios, graphs, and probability rules</span>
         </button>
 
         <button class="topic-button" type="button" data-topic="molecules">
           <strong>Bonds and biological molecules</strong>
-          <span>Ten questions on bond types, monomers, polymers, and protein properties</span>
+          <span>Seven questions drawn from a larger bank on bond types, monomers, polymers, and protein properties</span>
         </button>
 
         <button class="topic-button" type="button" data-topic="information">
           <strong>DNA, RNA, and proteins</strong>
-          <span>Ten questions on DNA and RNA structure, replication, transcription, and translation</span>
+          <span>Seven questions drawn from a larger bank on DNA and RNA structure, replication, transcription, and translation</span>
         </button>
 
         <button class="topic-button" type="button" data-topic="cells">
           <strong>Cells chromosomes and inheritance</strong>
-          <span>Ten questions on homologous chromosomes, cell division, and genetics terms</span>
+          <span>Seven questions drawn from a larger bank on homologous chromosomes, cell division, and genetics terms</span>
         </button>
 
         <button class="topic-button" type="button" data-topic="evolution">
           <strong>Evolution and populations</strong>
-          <span>Ten questions on mutation, variation, and changes in allele frequencies</span>
+          <span>Seven questions drawn from a larger bank on mutation, variation, and changes in allele frequencies</span>
         </button>
       </div>
     </section>
@@ -756,7 +757,7 @@
       <ul class="review-list" id="review-list"></ul>
       <p>Do not try to relearn everything. Spend a little time with any topics that felt unfamiliar, work a few problems, and bring remaining questions to class.</p>
       <div class="actions">
-        <button class="button" id="again-button" type="button">Practice these questions again</button>
+        <button class="button" id="again-button" type="button">Try another set</button>
         <button class="button secondary" id="topics-button" type="button">Choose another topic</button>
       </div>
     </section>
@@ -1372,20 +1373,57 @@
       return copy;
     }
 
+    const previousQuestionSets = new Map();
+
+    function freshQuestionSet(key, createSet) {
+      let selected = createSet();
+      let signature = selected.map((question) => question.prompt).sort().join("|");
+      const previousSignature = previousQuestionSets.get(key);
+
+      for (let attempt = 0; attempt < 10 && signature === previousSignature; attempt += 1) {
+        selected = createSet();
+        signature = selected.map((question) => question.prompt).sort().join("|");
+      }
+
+      previousQuestionSets.set(key, signature);
+      return selected;
+    }
+
+    function readinessQuestionSet() {
+      const topics = Object.keys(topicNames);
+      const selectedByTopic = new Map();
+
+      topics.forEach((topic) => {
+        selectedByTopic.set(topic, shuffle(questions.filter((question) => question.topic === topic)).slice(0, 2));
+      });
+
+      shuffle(topics).slice(0, 2).forEach((topic) => {
+        const alreadySelected = selectedByTopic.get(topic);
+        const remaining = questions.filter((question) => {
+          return question.topic === topic && !alreadySelected.includes(question);
+        });
+        alreadySelected.push(shuffle(remaining)[0]);
+      });
+
+      return shuffle([...selectedByTopic.values()].flat());
+    }
+
     function questionsFor(topic) {
       if (topic === "readiness") {
-        return questions
-          .filter((question) => question.readinessOrder)
-          .sort((first, second) => first.readinessOrder - second.readinessOrder);
+        return freshQuestionSet("readiness", readinessQuestionSet);
       }
 
       if (topic !== "all") {
-        return shuffle(questions.filter((question) => question.topic === topic));
+        return freshQuestionSet(topic, () => {
+          return shuffle(questions.filter((question) => question.topic === topic)).slice(0, 7);
+        });
       }
 
-      return shuffle(Object.keys(topicNames).flatMap((topicName) => {
-        return shuffle(questions.filter((question) => question.topic === topicName)).slice(0, 2);
-      }));
+      return freshQuestionSet("all", () => {
+        return shuffle(Object.keys(topicNames).flatMap((topicName) => {
+          return shuffle(questions.filter((question) => question.topic === topicName)).slice(0, 2);
+        }));
+      });
     }
 
     function showOnly(section) {
