@@ -328,6 +328,7 @@ function runSim(){
   setAvailable('xbtn',false);document.getElementById('epanel').classList.remove('vis');
   document.getElementById('outcome').classList.remove('vis','oc-on','oc-off','oc-partial');
   document.getElementById('prods').innerHTML='';document.getElementById('slog').textContent='';
+  announce('Simulation running.');
   var isOc=ST.o==='c',rG=null,aG=null,cG=null,slG=null,polG=null;
   if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     slog('Reduced-motion mode: showing the final result without animation.');
@@ -509,7 +510,7 @@ function explain(){
 
 var sps=[1,1.5,2.5],si=0;
 document.getElementById('speedBtn').addEventListener('click',function(){si=(si+1)%sps.length;SPEED=sps[si];var b=document.getElementById('speedBtn');if(SPEED===1){b.textContent='🐢 Slower';b.classList.remove('active');}else if(SPEED===1.5){b.textContent='🐢 1.5×';b.classList.add('active');}else{b.textContent='🐢 2.5×';b.classList.add('active');}runSim();});
-document.getElementById('stopBtn').addEventListener('click',stopAll);
+document.getElementById('stopBtn').addEventListener('click',function(){stopAll();announce('Simulation stopped.');});
 document.getElementById('tl').addEventListener('click',function(){tog('lac');});document.getElementById('tg').addEventListener('click',function(){tog('glc');});
 document.getElementById('runBtn').addEventListener('click',runSim);document.getElementById('xbtn').addEventListener('click',explain);
 [['bi-plus','i','plus'],['bi-minus','i','minus'],['bi-s','i','s'],['bp-plus','p','plus'],['bp-minus','p','minus'],['bo-plus','o','plus'],['bo-c','o','c'],['bz-plus','z','plus'],['bz-minus','z','minus'],['by-plus','y','plus'],['by-minus','y','minus'],['ba-plus','a','plus'],['ba-minus','a','minus']].forEach(function(r){var b=document.getElementById(r[0]);if(b)b.addEventListener('click',function(){pick(r[1],r[2]);});});
