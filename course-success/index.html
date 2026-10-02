@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Jessie Ebie">
+  <meta name="description" content="Practical guidance for studying, using support resources, and succeeding in BIO 340 General Genetics.">
+  <title>How to Be Successful in BIO 340</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --maroon: #8c1d40;
+      --maroon-dark: #62142d;
+      --gold: #ffc627;
+      --ink: #191919;
+      --muted: #5f5f5f;
+      --line: #b8b8b8;
+      --soft: #f5f5f5;
+      --paper: #fff;
+      --shadow: 0 10px 26px rgba(25, 25, 25, .09);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Neue Haas Grotesk Text", "Neue Haas Grotesk Display", Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      overflow-wrap: break-word;
+    }
+
+    a {
+      color: var(--maroon);
+      font-weight: 750;
+      text-underline-offset: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 10;
+      padding: 10px 14px;
+      border-radius: 6px;
+      background: #fff;
+      color: var(--maroon);
+      transform: translateY(-180%);
+      transition: transform .15s ease;
+    }
+
+    .skip-link:focus-visible { transform: translateY(0); }
+
+    .site-header {
+      border-bottom: 5px solid var(--gold);
+      background: linear-gradient(125deg, var(--maroon), #541226 70%, #251318);
+      color: #fff;
+    }
+
+    .header-inner,
+    main,
+    .footer-inner {
+      width: min(1000px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner { padding: 22px 0 44px; }
+
+    .back-link {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      margin-bottom: 28px;
+      color: #fff;
+    }
+
+    h1 {
+      max-width: 850px;
+      margin: 0;
+      font-size: clamp(2.2rem, 6vw, 4.35rem);
+      line-height: 1;
+      text-wrap: balance;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: rgba(255, 255, 255, .94);
+      font-size: clamp(1.05rem, 2.3vw, 1.3rem);
+    }
+
+    main { padding: 38px 0 64px; }
+
+    .lead {
+      max-width: 860px;
+      border-left: 6px solid var(--gold);
+      padding: 3px 0 3px 22px;
+    }
+
+    .lead h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.55rem, 4vw, 2.15rem);
+      line-height: 1.15;
+    }
+
+    .lead p { margin: 8px 0; }
+
+    .download-panel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 28px 0 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 20px;
+      background: var(--soft);
+    }
+
+    .download-panel p { margin: 0; }
+
+    .button {
+      display: inline-flex;
+      min-height: 44px;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--maroon);
+      border-radius: 8px;
+      padding: 8px 14px;
+      background: var(--maroon);
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      border-color: var(--maroon-dark);
+      background: var(--maroon-dark);
+    }
+
+    .faq-section + .faq-section { margin-top: 42px; }
+
+    .faq-section h2 {
+      margin: 0 0 14px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 8px;
+      font-size: clamp(1.55rem, 4vw, 2rem);
+      line-height: 1.15;
+    }
+
+    details {
+      margin: 12px 0;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    summary {
+      position: relative;
+      min-height: 52px;
+      padding: 14px 52px 14px 18px;
+      cursor: pointer;
+      font-size: 1.08rem;
+      font-weight: 800;
+      line-height: 1.35;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary::after {
+      position: absolute;
+      top: 50%;
+      right: 18px;
+      content: "+";
+      color: var(--maroon);
+      font-size: 1.55rem;
+      transform: translateY(-50%);
+    }
+
+    details[open] summary::after { content: "−"; }
+
+    summary:hover { background: var(--soft); }
+
+    summary:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .answer {
+      border-top: 1px solid var(--line);
+      padding: 4px 18px 18px;
+    }
+
+    .answer p { margin: 12px 0 0; }
+
+    .answer ul {
+      margin: 10px 0 0;
+      padding-left: 24px;
+    }
+
+    .answer li + li { margin-top: 7px; }
+
+    .policy-note {
+      margin-top: 38px;
+      border-top: 4px solid var(--maroon);
+      padding-top: 18px;
+      color: var(--muted);
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .footer-inner {
+      padding: 20px 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    @media (max-width: 620px) {
+      .header-inner { padding-bottom: 36px; }
+      .download-panel { align-items: stretch; flex-direction: column; }
+      .button { width: 100%; }
+      summary { padding-left: 14px; }
+      .answer { padding-right: 14px; padding-left: 14px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+
+    @media print {
+      .skip-link, .back-link, .download-panel { display: none; }
+      .site-header { border-bottom: 2px solid #000; background: #fff; color: #000; }
+      .subtitle { color: #000; }
+      details { break-inside: avoid; box-shadow: none; }
+      details:not([open]) > :not(summary) { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="back-link" href="../index.html">Back to BIO 340 Educational Apps</a>
+      <h1>How to Be Successful in BIO 340</h1>
+      <p class="subtitle">Practical guidance for preparing, studying, getting help, and building connections in General Genetics.</p>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="lead" aria-labelledby="start-heading">
+      <h2 id="start-heading">Genetics builds from week to week</h2>
+      <p>The strongest approach is steady engagement, active practice, and asking for help before small gaps become larger ones.</p>
+    </section>
+
+    <aside class="download-panel" aria-label="Downloadable guide">
+      <p><strong>Would you rather read or print this information?</strong><br>Download the accessible course success guide.</p>
+      <a class="button" href="../resources/BIO-340-Course-Success-Guide.pdf" download>Download the PDF</a>
+    </aside>
+
+    <section class="faq-section" aria-labelledby="expect-heading">
+      <h2 id="expect-heading">What to expect</h2>
+
+      <details open>
+        <summary>How much time should I plan for BIO 340?</summary>
+        <div class="answer">
+          <p>BIO 340 is a four-credit course completed in 7.5 weeks. The average student should plan to spend about 24 hours each week learning new material, completing assignments, practicing problems, and reviewing earlier concepts. That is a substantial commitment, so it is important to make room for it in your schedule.</p>
+          <p>Protect time for the course across several days each week and begin assignments early enough to ask questions. See the course syllabus on Canvas for current workload expectations and course requirements.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Why can genetics feel challenging?</summary>
+        <div class="answer">
+          <p>BIO 340 is an upper-level survey of a very large field. The course is challenging but doable if approached correctly. Genetics requires more than memorizing facts or vocabulary. You will interpret information, decide which ideas apply, explain patterns, and work through unfamiliar problems. Many questions are more like word problems or puzzles than recall questions, and finding an approach may take more than one attempt.</p>
+          <p>I am sharing this so you can plan realistically, not to discourage you. Protect time across several days each week, begin early enough to ask questions, and expect problem solving to take time.</p>
+          <p>The course includes some flexibility for when life happens. Outside those options, deadlines are firm. See the course syllabus on Canvas for details.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="faq-section" aria-labelledby="learning-heading">
+      <h2 id="learning-heading">Learning and studying</h2>
+
+      <details>
+        <summary>What is the learning space?</summary>
+        <div class="answer">
+          <p>Clinical psychologist Dr. Becky Kennedy uses the term Learning Space™ for the gap between not knowing something and knowing it. This middle can feel frustrating and messy because you are still working things out. That discomfort does not mean you are failing or that you are not good at genetics. It often means you are learning.</p>
+          <p>In the Learning Space, name what you understand, what remains unclear, and one next step you can attempt. Keep track of your questions and use support hours when you need help moving forward.</p>
+          <p><a href="https://www.goodinside.com/blog/the-learning-space-is-key-to-building-resilience/">Read more about The Learning Space™ from Good Inside</a>.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>What is the difference between familiarity and mastery?</summary>
+        <div class="answer">
+          <p>Material can feel familiar when you reread notes or recognize a worked example. Mastery means you can retrieve an idea without looking, decide when it applies, use it in a new situation, and explain your reasoning.</p>
+          <ul>
+            <li>Close your notes and solve a problem from the beginning.</li>
+            <li>Explain why each step is appropriate, not only what you did.</li>
+            <li>Change part of the problem and predict how the answer will change.</li>
+            <li>Teach the idea in your own words, then use gaps and mistakes to choose what to practice next.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>How should I study for genetics?</summary>
+        <div class="answer">
+          <ul>
+            <li><strong>Practice recalling before reviewing.</strong> Begin with notes closed, then use course materials to correct and strengthen your understanding.</li>
+            <li><strong>Explain your reasoning.</strong> If you cannot justify a step, you have found a useful question to ask.</li>
+            <li><strong>Apply concepts in new situations.</strong> Change the organism, inheritance pattern, information given, or question being asked.</li>
+            <li><strong>Space and mix practice.</strong> Return to ideas over several days and mix related problem types. This also helps you identify connections between topics.</li>
+            <li><strong>Use vocabulary in context.</strong> Connect terms to diagrams, examples, and relationships.</li>
+            <li><strong>Create visual models.</strong> Draw and label processes, then explain what changes from one step to the next.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>How can I tell whether I really understand a problem?</summary>
+        <div class="answer">
+          <p>Try to explain the problem without relying on the answer key. Name the concept being tested, describe why your approach fits, and explain each step. Then ask how the solution would change if one condition changed.</p>
+          <p>A correct answer is useful. A correct answer that you can explain and adapt is stronger evidence of understanding.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="faq-section" aria-labelledby="support-heading">
+      <h2 id="support-heading">Getting help and building connections</h2>
+
+      <details>
+        <summary>What resources should I use?</summary>
+        <div class="answer">
+          <p>Use support resources before you feel completely stuck. Attend student support hours, ask appropriate questions in your Gene Pool (small learning group) or the Community Forum, use ASU's free online tutoring, and work intentionally with course readings, lectures, recitations, Mastering Genetics practice, and ungraded Dynamic Study Modules.</p>
+          <p>For additional guidance on metacognition, motivation, and study habits, ASU provides access to <a href="https://search.lib.asu.edu/permalink/01ASU_INST/1da5cgk/cdi_askewsholts_vlebooks_9781620367582">Teach Yourself How to Learn through the ASU Library</a>. This is an excellent resource.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>What happens during support hours?</summary>
+        <div class="answer">
+          <p>Support hours are a place to learn, not a test of what you already know. You do not need to arrive with a polished question. Bring a question, a problem attempt, or the point where your reasoning stopped. You may attend any posted session hosted by a member of the instructional team.</p>
+          <p>Support hours are not recorded. If the posted times do not work or you would prefer a one-on-one conversation, email a member of the instructional team to ask about another meeting time.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>What if I am nervous to attend support hours?</summary>
+        <div class="answer">
+          <p>Start small. You can say, “I am not sure where I went wrong” or “I do not know how to begin.” Those are useful starting points. You may also email ahead to share what you want help with.</p>
+          <p>Confusion is expected. Support hours exist because learning usually includes questions and mistakes.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Can support hours help me build professional connections?</summary>
+        <div class="answer">
+          <p>Yes. Regular conversations help the instructional team learn how you think, what interests you, and how you are growing. You can ask about course ideas, study approaches, future coursework, or careers.</p>
+          <p>Strong course engagement may also help you learn about opportunities to apply to become an undergraduate TA in a future term. These roles are not guaranteed, but support hours are a good place to begin building professional relationships.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>How should I work with classmates?</summary>
+        <div class="answer">
+          <p>Explaining ideas to another student can strengthen recall and reveal gaps. Use your Gene Pool (small learning group) to learn with others. Compare reasoning after each person has attempted a problem, ask one another why an approach works, and create new examples or questions.</p>
+          <p>Follow the collaboration rules for each assignment, and make sure anything you submit is your own work.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="faq-section" aria-labelledby="planning-heading">
+      <h2 id="planning-heading">Planning and course decisions</h2>
+
+      <details>
+        <summary>How can I keep from falling behind?</summary>
+        <div class="answer">
+          <p>At the beginning of each module, identify due dates, exam windows, and the work you will complete each day. Check Canvas and your ASU email regularly. Begin cumulative review early because later genetics topics rely on earlier ideas.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Which course policies should I know?</summary>
+        <div class="answer">
+          <p>Be familiar with policies related to deadlines, late passes, exams, collaboration, communication, and academic integrity. The course includes specific flexibility because life happens. Outside those options, deadlines are firm. See the course syllabus on Canvas for details, and ask before acting if you are unsure how a policy applies.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>What should I do if I start to fall behind?</summary>
+        <div class="answer">
+          <ul>
+            <li>List what is due, what is incomplete, and which concepts are blocking you.</li>
+            <li>Prioritize current required work while scheduling a small amount of time to repair the most important earlier gap.</li>
+            <li>Review the course syllabus on Canvas so you understand any available options and the steps required to use them.</li>
+            <li>Contact the instructional team early and ask for help deciding what to do next.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <p class="policy-note"><strong>Disclaimer:</strong> Course policies and resources may change. The current syllabus, Canvas course, and assignment directions are the official sources for requirements.</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">BIO 340 General Genetics · Dr. Jessie Ebie</div>
+  </footer>
+</body>
+</html>
