@@ -14,7 +14,7 @@
       --asu-gold: #ffc627;
       --ink: #191919;
       --muted: #5f5f5f;
-      --line: #b8b8b8;
+      --line: #767676;
       --paper: #fff;
       --soft: #f5f5f5;
       --correct: #146c43;
@@ -569,8 +569,9 @@
     }
 
     :focus-visible {
-      outline: 3px solid var(--asu-gold);
-      outline-offset: 3px;
+      outline: 3px solid #fff;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 5px var(--ink);
     }
 
     @media (max-width: 680px) {
@@ -657,7 +658,7 @@
       <p>The guide includes the complete readiness check, answers, and a five-session review plan. You can also use the free OpenStax Biology 2e text when you want another explanation.</p>
       <div class="actions">
         <a class="button" href="../resources/BIO-340-Genetics-Preparation-Guide.pdf" download>Download the preparation guide PDF</a>
-        <a class="text-link" href="https://openstax.org/details/books/biology-2e" target="_blank" rel="noopener">Open OpenStax Biology 2e</a>
+        <a class="text-link" href="https://openstax.org/details/books/biology-2e" target="_blank" rel="noopener">Open OpenStax Biology 2e (opens in a new tab)</a>
       </div>
     </section>
 
@@ -1499,12 +1500,21 @@
 
       const optionLabels = answerList.querySelectorAll(".answer-option");
       optionLabels[question.answer].classList.add("correct-answer");
+      const correctStatus = document.createElement("span");
+      correctStatus.className = "sr-only";
+      correctStatus.textContent = " Correct answer.";
+      optionLabels[question.answer].append(correctStatus);
       if (!isCorrect) {
         optionLabels[chosenIndex].classList.add("chosen-incorrect");
+        const chosenStatus = document.createElement("span");
+        chosenStatus.className = "sr-only";
+        chosenStatus.textContent = " Your selected answer was incorrect.";
+        optionLabels[chosenIndex].append(chosenStatus);
       }
 
       feedback.className = `feedback ${isCorrect ? "correct" : "review"}`;
-      feedback.innerHTML = `<strong>${isCorrect ? "That is right." : "This one may be worth reviewing."}</strong><p>${question.feedback}</p>`;
+      const correction = isCorrect ? "" : `<p><strong>Correct answer:</strong> ${question.choices[question.answer]}</p>`;
+      feedback.innerHTML = `<strong>${isCorrect ? "That is right." : "This one may be worth reviewing."}</strong>${correction}<p>${question.feedback}</p>`;
       feedback.hidden = false;
       checkButton.hidden = true;
       nextButton.hidden = false;

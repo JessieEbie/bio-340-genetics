@@ -43,8 +43,8 @@ html.embedded body{padding-top:.6rem}
 .tknob{position:absolute;top:3px;left:3px;width:17px;height:17px;background:#fff;border-radius:50%;pointer-events:none;transition:transform .2s;border:1px solid rgba(0,0,0,.15)}
 .ttrack.on .tknob{transform:translateX(19px)}
 .tval{font-size:14px;font-weight:700;color:#191919}
-.sec-title{font-size:12px;font-weight:800;color:#191919;margin-bottom:12px;text-transform:uppercase;letter-spacing:.06em;border-left:6px solid #FFC627;padding-left:10px}
-.gene-label{font-size:13px;font-weight:800;color:#484848;margin-bottom:6px;margin-top:12px}
+.sec-title{font-size:14px;font-weight:800;color:#191919;margin-bottom:12px;text-transform:uppercase;letter-spacing:.06em;border-left:6px solid #FFC627;padding-left:10px}
+.gene-label{font-size:14px;font-weight:800;color:#484848;margin-bottom:6px;margin-top:12px}
 .mgrid{display:grid;gap:8px;margin-bottom:4px}
 .g3{grid-template-columns:repeat(3,1fr)}
 .g2{grid-template-columns:repeat(2,1fr)}
@@ -53,12 +53,12 @@ html.embedded body{padding-top:.6rem}
 .mbtn.sel-on{background:#FFC627!important;border-color:#8C1D40!important;color:#191919!important;box-shadow:inset 0 0 0 1px #8C1D40}
 .mbtn.sel-off{background:#8C1D40!important;border-color:#191919!important;color:#fff!important}
 .mbtn .sym{font-size:15px;font-weight:800;pointer-events:none}
-.mbtn .dsc{font-size:11px;font-weight:500;pointer-events:none}
+.mbtn .dsc{font-size:13px;font-weight:500;pointer-events:none}
 .scols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:4px}
 .scol{display:flex;flex-direction:column;gap:7px}
-.scol-hd{font-size:13px;font-weight:800;color:#484848;text-align:center}
+.scol-hd{font-size:14px;font-weight:800;color:#484848;text-align:center}
 .sim-section{margin:18px 0 0;padding-top:16px;border-top:1px solid #BFBFBF}
-.sim-section-title{font-size:12px;font-weight:800;color:#191919;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px;border-left:6px solid #FFC627;padding-left:10px}
+.sim-section-title{font-size:14px;font-weight:800;color:#191919;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px;border-left:6px solid #FFC627;padding-left:10px}
 .sim-btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .run-btn{background:#8C1D40;border:2px solid #8C1D40;border-radius:6px;color:#fff;font-size:14px;font-weight:800;padding:9px 18px;cursor:pointer;display:flex;align-items:center;gap:7px;-webkit-appearance:none;appearance:none;touch-action:manipulation}
 .run-btn:hover{background:#6b1530}
@@ -77,20 +77,20 @@ html.embedded body{padding-top:.6rem}
 .oc-partial{background:#484848;color:#fff;border-color:#191919}
 .odot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .oc-on .odot{background:#191919}.oc-off .odot{background:rgba(255,255,255,.7)}.oc-partial .odot{background:#FFC627}
-.steplog{font-size:13px;color:#191919;min-height:30px;padding:2px 0;line-height:1.5}
+.steplog{font-size:14px;color:#191919;min-height:30px;padding:2px 0;line-height:1.5}
 .prods{display:flex;gap:6px;flex-wrap:wrap;min-height:22px;margin-top:6px}
-.pill{font-size:12px;font-weight:600;padding:3px 10px;border-radius:16px;opacity:0;transform:translateY(4px);transition:opacity .4s,transform .4s}
+.pill{font-size:13px;font-weight:600;padding:3px 10px;border-radius:16px;opacity:0;transform:translateY(4px);transition:opacity .4s,transform .4s}
 .pill.show{opacity:1;transform:translateY(0)}
 .pill-on{background:#FFC627;color:#191919;border:1px solid #8C1D40}
 .pill-off{background:#8C1D40;color:#fff}
 .epanel{background:#FAFAFA;border:1px solid #BFBFBF;border-radius:8px;padding:14px 16px;margin-top:11px;display:none}
 .epanel.vis{display:block}
 .etitle{font-size:14px;font-weight:700;color:#8C1D40;margin-bottom:7px}
-.ebody{font-size:12.5px;color:#191919;line-height:1.65}
+.ebody{font-size:14px;color:#191919;line-height:1.65}
 .tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
-.tag{font-size:12px;font-weight:600;padding:3px 10px;border-radius:16px}
+.tag{font-size:13px;font-weight:600;padding:3px 10px;border-radius:16px}
 .tm{background:#8C1D40;color:#fff}.tg{background:#FFC627;color:#191919;border:1px solid #8C1D40}.tn{background:#78BE20;color:#191919}.ty{background:#484848;color:#fff}
-.back-link:focus-visible,.ttrack:focus-visible,.mbtn:focus-visible,.run-btn:focus-visible,.stop-btn:focus-visible,.speed-btn:focus-visible,.xbtn:focus-visible{outline:3px solid #FFC627;outline-offset:3px}
+.back-link:focus-visible,.ttrack:focus-visible,.mbtn:focus-visible,.run-btn:focus-visible,.stop-btn:focus-visible,.speed-btn:focus-visible,.xbtn:focus-visible{outline:3px solid #fff;outline-offset:2px;box-shadow:0 0 0 5px #191919}
 @media (max-width:640px){
   .header-inner{grid-template-columns:1fr;align-items:start;gap:8px}
   .subtitle{text-align:left;white-space:normal}
@@ -115,7 +115,7 @@ html.embedded body{padding-top:.6rem}
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
-<header class="app-header" aria-label="App header">
+<header class="app-header">
   <div class="header-inner">
     <div class="title-wrap">
       <h1 class="app-title">Lac Operon Simulation</h1>
@@ -128,7 +128,7 @@ html.embedded body{padding-top:.6rem}
   </div>
 </header>
 <main class="app-shell" id="main-content" tabindex="-1">
-<section class="control-panel" aria-label="Simulation setup controls">
+<section class="control-panel" aria-labelledby="environment-heading mutation-heading">
 <h2 class="sr-only" id="environment-heading">Environmental conditions</h2>
 <div class="ctrl-row">
   <div class="ccard"><div class="clabel" id="lac-label">Lactose</div><div class="tog-row"><button type="button" class="ttrack" id="tl" role="switch" aria-checked="false" aria-labelledby="lac-label tlv"><div class="tknob"></div></button><span class="tval" id="tlv">Absent</span></div></div>
@@ -136,33 +136,33 @@ html.embedded body{padding-top:.6rem}
 </div>
 <h2 class="sec-title" id="mutation-heading">Mutations — select one allele per gene</h2>
 <p class="sr-only" id="mutation-instructions">Each gene group has selectable allele buttons. The selected allele is announced as pressed.</p>
-<h3 class="gene-label">lacI — repressor protein</h3>
-<div class="mgrid g3">
+<h3 class="gene-label" id="laci-heading">lacI — repressor protein</h3>
+<div class="mgrid g3" role="group" aria-labelledby="laci-heading">
   <button class="mbtn sel-on" id="bi-plus" aria-label="lacI plus, normal repressor" aria-pressed="true"><span class="sym">I<sup>+</sup></span><span class="dsc">normal repressor</span></button>
   <button class="mbtn" id="bi-minus" aria-label="lacI minus, repressor cannot bind operator" aria-pressed="false"><span class="sym">I<sup>−</sup></span><span class="dsc">cannot bind operator</span></button>
   <button class="mbtn" id="bi-s" aria-label="lacI super-repressor" aria-pressed="false"><span class="sym">I<sup>s</sup></span><span class="dsc">super-repressor</span></button>
 </div>
-<h3 class="gene-label">lacP — promoter</h3>
-<div class="mgrid g2">
+<h3 class="gene-label" id="lacp-heading">lacP — promoter</h3>
+<div class="mgrid g2" role="group" aria-labelledby="lacp-heading">
   <button class="mbtn sel-on" id="bp-plus" aria-label="lacP plus, normal promoter" aria-pressed="true"><span class="sym">P<sup>+</sup></span><span class="dsc">normal promoter</span></button>
   <button class="mbtn" id="bp-minus" aria-label="lacP minus, mutated promoter" aria-pressed="false"><span class="sym">P<sup>−</sup></span><span class="dsc">mutated promoter</span></button>
 </div>
-<h3 class="gene-label">lacO — operator</h3>
-<div class="mgrid g2">
+<h3 class="gene-label" id="laco-heading">lacO — operator</h3>
+<div class="mgrid g2" role="group" aria-labelledby="laco-heading">
   <button class="mbtn sel-on" id="bo-plus" aria-label="lacO plus, normal operator" aria-pressed="true"><span class="sym">O<sup>+</sup></span><span class="dsc">normal operator</span></button>
   <button class="mbtn" id="bo-c" aria-label="lacO constitutive, mutated operator" aria-pressed="false"><span class="sym">O<sup>c</sup></span><span class="dsc">mutated operator</span></button>
 </div>
-<h3 class="gene-label">Structural genes</h3>
+<h3 class="gene-label" id="structural-heading">Structural genes</h3>
 <div class="scols">
-  <div class="scol"><div class="scol-hd">lacZ</div>
+  <div class="scol" role="group" aria-labelledby="lacz-heading"><div class="scol-hd" id="lacz-heading">lacZ</div>
     <button class="mbtn sel-on" id="bz-plus" aria-label="lacZ plus, beta-galactosidase functional" aria-pressed="true"><span class="sym">Z<sup>+</sup></span><span class="dsc">β-gal OK</span></button>
     <button class="mbtn" id="bz-minus" aria-label="lacZ minus, no beta-galactosidase" aria-pressed="false"><span class="sym">Z<sup>−</sup></span><span class="dsc">no β-gal</span></button>
   </div>
-  <div class="scol"><div class="scol-hd">lacY</div>
+  <div class="scol" role="group" aria-labelledby="lacy-heading"><div class="scol-hd" id="lacy-heading">lacY</div>
     <button class="mbtn sel-on" id="by-plus" aria-label="lacY plus, permease functional" aria-pressed="true"><span class="sym">Y<sup>+</sup></span><span class="dsc">permease OK</span></button>
     <button class="mbtn" id="by-minus" aria-label="lacY minus, no permease" aria-pressed="false"><span class="sym">Y<sup>−</sup></span><span class="dsc">no permease</span></button>
   </div>
-  <div class="scol"><div class="scol-hd">lacA</div>
+  <div class="scol" role="group" aria-labelledby="laca-heading"><div class="scol-hd" id="laca-heading">lacA</div>
     <button class="mbtn sel-on" id="ba-plus" aria-label="lacA plus, transacetylase functional" aria-pressed="true"><span class="sym">A<sup>+</sup></span><span class="dsc">acetylase OK</span></button>
     <button class="mbtn" id="ba-minus" aria-label="lacA minus, minimal effect" aria-pressed="false"><span class="sym">A<sup>−</sup></span><span class="dsc">minimal effect</span></button>
   </div>
@@ -171,9 +171,9 @@ html.embedded body{padding-top:.6rem}
   <h2 class="sim-section-title">Simulation Controls</h2>
   <div class="sim-btns">
     <button class="run-btn" id="runBtn"><svg width="11" height="11" viewBox="0 0 13 13" aria-hidden="true" focusable="false"><polygon points="2,1 12,6.5 2,12" fill="white"/></svg> Run</button>
-    <button class="stop-btn" id="stopBtn">⏹ Stop</button>
+    <button class="stop-btn" id="stopBtn" disabled>⏹ Stop</button>
     <button class="speed-btn" id="speedBtn">🐢 Slower</button>
-    <button class="xbtn" id="xbtn">Explain ↗</button>
+    <button class="xbtn" id="xbtn" disabled>Explain result</button>
   </div>
 </div>
 </section>
@@ -182,10 +182,10 @@ html.embedded body{padding-top:.6rem}
 <p class="sr-only" id="sim-desc">This panel contains an animated lac operon diagram. The diagram is decorative for screen-reader users, and the current simulation status is announced below.</p>
 <div id="sr-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
 <div class="svg-wrap"><svg id="oSvg" width="100%" viewBox="0 0 1680 875" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"></svg></div>
-<div id="outcome" class="outcome" role="status" aria-live="polite" aria-atomic="true"><div class="odot" aria-hidden="true"></div><span id="otxt"></span></div>
-<div class="steplog" id="slog" aria-live="polite" aria-atomic="true"></div>
-<div class="prods" id="prods" aria-live="polite" aria-atomic="true"></div>
-<div class="epanel" id="epanel"><div class="etitle" id="etitle"></div><div class="ebody" id="ebody"></div><div class="tags" id="etags"></div></div>
+<div id="outcome" class="outcome"><div class="odot" aria-hidden="true"></div><span id="otxt"></span></div>
+<div class="steplog" id="slog"></div>
+<div class="prods" id="prods"></div>
+<div class="epanel" id="epanel" role="region" aria-labelledby="etitle" tabindex="-1"><div class="etitle" id="etitle"></div><div class="ebody" id="ebody"></div><div class="tags" id="etags"></div></div>
 </section>
 <footer class="embed-footer">© 2026 Jessie Ebie</footer>
 </main>
@@ -220,11 +220,12 @@ function alloPresent(){return ST.lac&&ST.y!=='minus';}
 function isIsLac(){return ST.i==='s'&&alloPresent();}
 function announce(msg){var sr=document.getElementById('sr-status');if(!sr)return;sr.textContent='';setTimeout(function(){sr.textContent=msg;},20);}
 
-function stopAll(){stopToken++;if(rafId){cancelAnimationFrame(rafId);rafId=null;}document.getElementById('stopBtn').classList.remove('vis');}
+function setAvailable(id,available){var b=document.getElementById(id);b.disabled=!available;b.classList.toggle('vis',available);}
+function stopAll(){stopToken++;if(rafId){cancelAnimationFrame(rafId);rafId=null;}setAvailable('stopBtn',false);}
 function W(ms,fn){var tok=stopToken;setTimeout(function(){if(stopToken===tok)fn();},ms*SPEED);}
 function tog(w){if(w==='lac'){ST.lac=!ST.lac;document.getElementById('tl').classList.toggle('on',ST.lac);document.getElementById('tl').setAttribute('aria-checked',String(ST.lac));document.getElementById('tlv').textContent=ST.lac?'Present':'Absent';announce('Lactose '+(ST.lac?'present':'absent'));}else{ST.glc=!ST.glc;document.getElementById('tg').classList.toggle('on',ST.glc);document.getElementById('tg').setAttribute('aria-checked',String(ST.glc));document.getElementById('tgv').textContent=ST.glc?'Present':'Absent';announce('Glucose '+(ST.glc?'present':'absent'));}reset();}
 function pick(g,a){ST[g]=a;var io=OFF[g]&&OFF[g][a];GRP[g].forEach(function(v){var b=document.getElementById('b'+g+'-'+v);if(!b)return;b.classList.remove('sel-on','sel-off');b.setAttribute('aria-pressed',String(v===a));if(v===a)b.classList.add(io?'sel-off':'sel-on');});announce(g+' set to '+a);reset();}
-function reset(){stopAll();['xbtn','epanel'].forEach(function(id){document.getElementById(id).classList.remove('vis');});document.getElementById('outcome').classList.remove('vis','oc-on','oc-off','oc-partial');document.getElementById('slog').textContent='';document.getElementById('prods').innerHTML='';drawBase();}
+function reset(){stopAll();setAvailable('xbtn',false);document.getElementById('epanel').classList.remove('vis');document.getElementById('outcome').classList.remove('vis','oc-on','oc-off','oc-partial');document.getElementById('slog').textContent='';document.getElementById('prods').innerHTML='';drawBase();}
 
 function calc(){
   var lac=ST.lac,glc=ST.glc,i=ST.i,p=ST.p,o=ST.o;
@@ -322,12 +323,17 @@ function runSim(){
   stopAll();drawBase();
   var res=calc(),myTok=stopToken;
   function alive(){return stopToken===myTok;}
-  document.getElementById('stopBtn').classList.add('vis');
+  setAvailable('stopBtn',true);
   var svg=document.getElementById('oSvg');
-  ['xbtn','epanel'].forEach(function(id){document.getElementById(id).classList.remove('vis');});
+  setAvailable('xbtn',false);document.getElementById('epanel').classList.remove('vis');
   document.getElementById('outcome').classList.remove('vis','oc-on','oc-off','oc-partial');
   document.getElementById('prods').innerHTML='';document.getElementById('slog').textContent='';
   var isOc=ST.o==='c',rG=null,aG=null,cG=null,slG=null,polG=null;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    slog('Reduced-motion mode: showing the final result without animation.');
+    fin(res,svg,myTok,null);
+    return;
+  }
   var t=0;function at(d,fn){t+=d;W(t,function(){if(alive())fn();});}
 
   /* ─── Step 1: lacI ─── */
@@ -452,12 +458,13 @@ function runSim(){
 
 function fin(res,svg,myTok,polG){
   if(stopToken!==myTok)return;
+  setAvailable('stopBtn',false);
   if(!res.pb){
     var b=el('g',{});b.style.cssText='opacity:0;animation:popIn .5s ease forwards';
     b.appendChild(Ci(BADGE_CX,DY+DH/2,44,'#FCEBEB','#8C1D40',2.5));b.appendChild(T(BADGE_CX,DY+DH/2-8,'NO',17,700,'#8C1D40'));b.appendChild(T(BADGE_CX,DY+DH/2+10,'transcription',11,600,'#8C1D40'));
     svg.appendChild(b);setOut('off','No transcription — lac genes silent');
     document.getElementById('prods').innerHTML='<span style="font-size:12.5px;color:#484848;font-weight:500">No proteins produced</span>';
-    slog('Result: No transcription — lac genes silent');document.getElementById('xbtn').classList.add('vis');return;
+    slog('Result: No transcription — lac genes silent');setAvailable('xbtn',true);return;
   }
   var lv=res.lv;
   var b=el('g',{});b.style.cssText='opacity:0;animation:popIn .5s ease 0.3s forwards';
@@ -474,11 +481,11 @@ function fin(res,svg,myTok,polG){
   slog(lv==='on'?'Step 5: mRNA → β-galactosidase, permease, transacetylase':'Step 5: Low-level mRNA (catabolite repression)');
   var pr=document.getElementById('prods');pr.innerHTML='';
   [['β-galactosidase (lacZ)',res.zF],['Permease (lacY)',res.yF],['Transacetylase (lacA)',res.aF]].forEach(function(it,i){var p=document.createElement('div');p.className='pill '+(it[1]?'pill-on':'pill-off');p.textContent=it[1]?it[0]:it[0]+' (non-functional)';pr.appendChild(p);setTimeout(function(){p.classList.add('show');},180+i*200);});
-  document.getElementById('xbtn').classList.add('vis');
+  setAvailable('xbtn',true);
 }
 
 function setOut(lv,msg){var ob=document.getElementById('outcome');ob.classList.remove('oc-on','oc-off','oc-partial');ob.classList.add('vis','oc-'+(lv==='on'?'on':lv==='off'?'off':'partial'));document.getElementById('otxt').textContent=msg;announce(msg);}
-function slog(msg){document.getElementById('slog').textContent=msg;announce(msg);}
+function slog(msg){document.getElementById('slog').textContent=msg;}
 
 function explain(){
   var res=calc();var i=ST.i,p=ST.p,o=ST.o,z=ST.z,y=ST.y,lac=ST.lac,glc=ST.glc;
@@ -497,6 +504,7 @@ function explain(){
   document.getElementById('etitle').textContent=title;document.getElementById('ebody').innerHTML=body.replace(/\n\n/g,'<br><br>');
   var tr=document.getElementById('etags');tr.innerHTML='';tags.forEach(function(t){var d=document.createElement('div');d.className='tag '+t.c;d.textContent=t.t;tr.appendChild(d);});
   document.getElementById('epanel').classList.add('vis');
+  document.getElementById('epanel').focus();
 }
 
 var sps=[1,1.5,2.5],si=0;
