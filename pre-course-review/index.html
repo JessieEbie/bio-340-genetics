@@ -746,6 +746,7 @@
       <form id="question-form">
         <fieldset>
           <legend id="question-text"></legend>
+          <p class="quiet-note" id="answer-instructions" hidden>Select all answers that apply.</p>
           <div class="answer-list" id="answer-list"></div>
         </fieldset>
 
@@ -753,6 +754,7 @@
 
         <div class="actions">
           <button class="button" id="check-button" type="submit">Check my answer</button>
+          <button class="button secondary" id="reveal-button" type="button">Show answer and explanation</button>
           <button class="button" id="next-button" type="button" hidden>Next question</button>
           <button class="button secondary" id="choose-button" type="button">Choose another topic</button>
         </div>
@@ -789,10 +791,10 @@
       {
         topic: "probability",
         readinessOrder: 1,
-        prompt: "Which value is equivalent to 3/8?",
+        prompt: "Which decimal is equivalent to the fraction 3/8?",
         choices: ["0.0375", "0.375", "3.75", "37.5"],
         answer: 1,
-        feedback: "Review converting among fractions, decimals, and percentages. Three divided by eight is 0.375, or 37.5 percent."
+        feedback: "Review converting among fractions, decimals, and percentages. Three divided by eight is the decimal 0.375, which is also 37.5 percent."
       },
       {
         topic: "probability",
@@ -855,9 +857,9 @@
       {
         topic: "probability",
         prompt: "A graph shows an allele frequency increasing from 0.20 to 0.35. Which statement is supported by the graph alone?",
-        choices: ["The allele became dominant", "The frequency increased by 0.15", "Natural selection caused the change", "Every individual acquired the allele"],
+        choices: ["The allele became dominant", "The allele frequency increased by 0.15, or 15 percentage points", "Natural selection caused the change", "Every individual acquired the allele"],
         answer: 1,
-        feedback: "Review how to read a graph without overinterpreting it. The values show an increase of 0.15, but they do not identify the cause."
+        feedback: "Review how to read a graph without overinterpreting it. The frequency increased by 0.15, which is 15 percentage points, but the graph does not identify the cause."
       },
       {
         topic: "molecules",
@@ -1013,10 +1015,10 @@
       },
       {
         topic: "cells",
-        prompt: "How many cells are usually produced when one parent cell completes meiosis?",
+        prompt: "In the standard introductory model, how many haploid cells result after one diploid parent cell completes meiosis?",
         choices: ["One", "Two", "Three", "Four"],
         answer: 3,
-        feedback: "Review the basic outcome of meiosis. One parent cell usually produces four cells after two divisions."
+        feedback: "Review the basic outcome of meiosis. In the standard introductory model, one diploid parent cell produces four haploid cells after two divisions."
       },
       {
         topic: "cells",
@@ -1027,10 +1029,10 @@
       },
       {
         topic: "cells",
-        prompt: "A parent cell begins meiosis with 18 chromosomes. How many chromosomes should each resulting cell have?",
+        prompt: "A diploid parent cell begins meiosis with 18 chromosomes. In the standard introductory model, how many chromosomes should each resulting haploid cell have?",
         choices: ["9", "18", "27", "36"],
         answer: 0,
-        feedback: "Review how chromosome number changes during cell division. Meiosis reduces the chromosome number by half."
+        feedback: "Review how chromosome number changes during cell division. Meiosis reduces the chromosome number by half, so each resulting haploid cell has 9 chromosomes."
       },
       {
         topic: "cells",
@@ -1079,10 +1081,10 @@
       {
         topic: "evolution",
         readinessOrder: 12,
-        prompt: "Which process creates a new allele in a population?",
+        prompt: "Which process can create a new allele by changing a DNA sequence?",
         choices: ["Mutation", "Natural selection", "Genetic drift", "Nonrandom mating"],
         answer: 0,
-        feedback: "Review the sources of genetic variation. Mutation changes DNA sequence and can create a new allele."
+        feedback: "Review the sources of genetic variation. Mutation changes DNA sequence and can create a new allele. Gene flow can bring an existing allele into a population, but it does not create the allele."
       },
       {
         topic: "evolution",
@@ -1330,9 +1332,11 @@
     const progressText = document.querySelector("#progress-text");
     const questionForm = document.querySelector("#question-form");
     const questionText = document.querySelector("#question-text");
+    const answerInstructions = document.querySelector("#answer-instructions");
     const answerList = document.querySelector("#answer-list");
     const feedback = document.querySelector("#feedback");
     const checkButton = document.querySelector("#check-button");
+    const revealButton = document.querySelector("#reveal-button");
     const nextButton = document.querySelector("#next-button");
     const resultsSummary = document.querySelector("#results-summary");
     const reviewList = document.querySelector("#review-list");
@@ -1346,6 +1350,15 @@
     let activeQuestions = [];
     let currentIndex = 0;
     let answers = [];
+    let attempts = 0;
+
+    const reviewGuidance = {
+      probability: "Write down what the question is asking for and keep fractions, decimals, percentages, and percentage-point changes distinct.",
+      molecules: "Identify the relevant atoms, functional groups, or side-chain properties before deciding which bond or interaction applies.",
+      information: "Track the molecule, strand, base-pairing rule, and 5-prime to 3-prime direction before choosing an answer.",
+      cells: "Track the starting chromosome number, the number of divisions, and whether the products are diploid or haploid.",
+      evolution: "Ask whether the question concerns the origin of an allele, movement between populations, chance, or differences in reproductive success."
+    };
 
     function showExplanation(question) {
       const normalizedQuestion = question.toLowerCase().replace(/[?.,!]/g, " ");
@@ -1454,11 +1467,14 @@
 
     function renderQuestion() {
       const question = activeQuestions[currentIndex];
+      const correctAnswers = Array.isArray(question.answer) ? question.answer : [question.answer];
+      const allowsMultiple = correctAnswers.length > 1;
       topicLabel.textContent = selectedTopic === "all" || selectedTopic === "readiness"
         ? topicNames[question.topic]
         : topicNames[selectedTopic];
       progressText.textContent = `Question ${currentIndex + 1} of ${activeQuestions.length}`;
       questionText.textContent = question.prompt;
+      answerInstructions.hidden = !allowsMultiple;
       answerList.replaceChildren();
 
       question.choices.forEach((choice, index) => {
@@ -1466,7 +1482,7 @@
         label.className = "answer-option";
 
         const input = document.createElement("input");
-        input.type = "radio";
+        input.type = allowsMultiple ? "checkbox" : "radio";
         input.name = "answer";
         input.value = String(index);
 
@@ -1480,16 +1496,50 @@
       feedback.hidden = true;
       feedback.className = "feedback";
       feedback.replaceChildren();
+      attempts = 0;
       checkButton.hidden = false;
+      revealButton.hidden = false;
       nextButton.hidden = true;
       nextButton.textContent = currentIndex === activeQuestions.length - 1 ? "See what to revisit" : "Next question";
     }
 
+    function markCorrectAnswer(question) {
+      const optionLabels = answerList.querySelectorAll(".answer-option");
+      const correctAnswers = Array.isArray(question.answer) ? question.answer : [question.answer];
+      correctAnswers.forEach((answerIndex) => {
+        optionLabels[answerIndex].classList.add("correct-answer");
+        if (optionLabels[answerIndex].querySelector(".correct-status")) {
+          return;
+        }
+        const correctStatus = document.createElement("span");
+        correctStatus.className = "sr-only correct-status";
+        correctStatus.textContent = " Correct answer.";
+        optionLabels[answerIndex].append(correctStatus);
+      });
+    }
+
+    function finishQuestion(question, isCorrect, introduction) {
+      answerList.querySelectorAll("input").forEach((input) => {
+        input.disabled = true;
+      });
+      markCorrectAnswer(question);
+      answers.push({ topic: question.topic, isCorrect });
+      const correctAnswers = Array.isArray(question.answer) ? question.answer : [question.answer];
+      const answerText = correctAnswers.map((answerIndex) => question.choices[answerIndex]).join("; ");
+      feedback.className = `feedback ${isCorrect ? "correct" : "review"}`;
+      feedback.innerHTML = `<strong>${introduction}</strong><p><strong>${correctAnswers.length > 1 ? "Correct answers" : "Correct answer"}:</strong> ${answerText}</p><p><strong>Why:</strong> ${question.feedback}</p><p><strong>Review guidance:</strong> ${reviewGuidance[question.topic]}</p>`;
+      feedback.hidden = false;
+      checkButton.hidden = true;
+      revealButton.hidden = true;
+      nextButton.hidden = false;
+      feedback.focus();
+    }
+
     function checkAnswer(event) {
       event.preventDefault();
-      const chosen = questionForm.querySelector('input[name="answer"]:checked');
+      const chosen = [...questionForm.querySelectorAll('input[name="answer"]:checked')];
 
-      if (!chosen) {
+      if (chosen.length === 0) {
         feedback.className = "feedback review";
         feedback.innerHTML = "<strong>Choose an answer first.</strong><p>It is fine to make your best guess.</p>";
         feedback.hidden = false;
@@ -1498,35 +1548,49 @@
       }
 
       const question = activeQuestions[currentIndex];
-      const chosenIndex = Number(chosen.value);
-      const isCorrect = chosenIndex === question.answer;
-      answers.push({ topic: question.topic, isCorrect });
-
-      answerList.querySelectorAll("input").forEach((input) => {
-        input.disabled = true;
-      });
-
+      const correctAnswers = Array.isArray(question.answer) ? question.answer : [question.answer];
+      const chosenIndices = chosen.map((input) => Number(input.value)).sort((a, b) => a - b);
+      const sortedCorrectAnswers = [...correctAnswers].sort((a, b) => a - b);
+      const isCorrect = chosenIndices.length === sortedCorrectAnswers.length
+        && chosenIndices.every((value, index) => value === sortedCorrectAnswers[index]);
       const optionLabels = answerList.querySelectorAll(".answer-option");
-      optionLabels[question.answer].classList.add("correct-answer");
-      const correctStatus = document.createElement("span");
-      correctStatus.className = "sr-only";
-      correctStatus.textContent = " Correct answer.";
-      optionLabels[question.answer].append(correctStatus);
-      if (!isCorrect) {
+      attempts += 1;
+
+      if (isCorrect) {
+        const message = attempts === 1 ? "That is right." : `That is right after ${attempts} tries.`;
+        finishQuestion(question, true, message);
+        return;
+      }
+
+      if (correctAnswers.length === 1) {
+        const chosenIndex = chosenIndices[0];
         optionLabels[chosenIndex].classList.add("chosen-incorrect");
+        chosen[0].disabled = true;
         const chosenStatus = document.createElement("span");
         chosenStatus.className = "sr-only";
-        chosenStatus.textContent = " Your selected answer was incorrect.";
+        chosenStatus.textContent = " This answer is incorrect.";
         optionLabels[chosenIndex].append(chosenStatus);
       }
 
-      feedback.className = `feedback ${isCorrect ? "correct" : "review"}`;
-      const correction = isCorrect ? "" : `<p><strong>Correct answer:</strong> ${question.choices[question.answer]}</p>`;
-      feedback.innerHTML = `<strong>${isCorrect ? "That is right." : "This one may be worth reviewing."}</strong>${correction}<p>${question.feedback}</p>`;
+      if (attempts >= 3) {
+        finishQuestion(question, false, "You have used all three tries. Review the answer and reasoning below.");
+        return;
+      }
+
+      const triesLeft = 3 - attempts;
+      feedback.className = "feedback review";
+      feedback.innerHTML = `<strong>Not quite. You have ${triesLeft === 1 ? "one try" : `${triesLeft} tries`} left.</strong><p>${reviewGuidance[question.topic]}</p><p>You can try another answer or choose “Show answer and explanation.”</p>`;
       feedback.hidden = false;
-      checkButton.hidden = true;
-      nextButton.hidden = false;
       feedback.focus();
+      chosen.forEach((input) => {
+        input.checked = false;
+      });
+      answerList.querySelector('input:not(:disabled)')?.focus();
+    }
+
+    function revealAnswer() {
+      const question = activeQuestions[currentIndex];
+      finishQuestion(question, false, "Here is the answer and an explanation.");
     }
 
     function nextQuestion() {
@@ -1591,6 +1655,7 @@
     });
 
     questionForm.addEventListener("submit", checkAnswer);
+    revealButton.addEventListener("click", revealAnswer);
     nextButton.addEventListener("click", nextQuestion);
     document.querySelector("#choose-button").addEventListener("click", chooseTopic);
     document.querySelector("#topics-button").addEventListener("click", chooseTopic);
