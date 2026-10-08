@@ -224,8 +224,10 @@
       padding: 8px 14px;
       background: var(--asu-maroon);
       color: #fff;
+      font: inherit;
       font-weight: 800;
       text-decoration: none;
+      cursor: pointer;
     }
 
     .card-actions {
@@ -261,6 +263,18 @@
       outline: 3px solid #fff;
       outline-offset: 2px;
       box-shadow: 0 0 0 5px var(--ink);
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -343,6 +357,9 @@
             <div class="card-actions">
               <a class="launch" href="pre-course-review/index.html">Start review</a>
               <a class="launch secondary" href="resources/BIO-340-Genetics-Preparation-Guide.pdf" download>Download guide</a>
+              <button class="launch secondary embed-copy" type="button"
+                data-embed-url="https://jessieebie.github.io/bio-340-genetics/pre-course-review/"
+                data-embed-title="BIO 340 Pre-Course Review">Copy Canvas embed code</button>
             </div>
           </div>
         </article>
@@ -362,6 +379,9 @@
             <div class="card-actions">
               <a class="launch" href="course-success/index.html">Read the guide</a>
               <a class="launch secondary" href="resources/BIO-340-Course-Success-Guide.pdf" download>Download PDF</a>
+              <button class="launch secondary embed-copy" type="button"
+                data-embed-url="https://jessieebie.github.io/bio-340-genetics/course-success/"
+                data-embed-title="Succeeding in BIO 340 General Genetics">Copy Canvas embed code</button>
             </div>
           </div>
         </article>
@@ -389,6 +409,9 @@
             </div>
             <div class="card-actions">
               <a class="launch" href="lac-operon/lac-operon-teaching-simulation.html">Launch simulation</a>
+              <button class="launch secondary embed-copy" type="button"
+                data-embed-url="https://jessieebie.github.io/bio-340-genetics/lac-operon/lac-operon-teaching-simulation.html"
+                data-embed-title="BIO 340 Lac Operon Simulation">Copy Canvas embed code</button>
             </div>
           </div>
         </article>
@@ -399,5 +422,47 @@
   <footer class="site-footer">
     <div class="footer-inner">© 2026 Dr. Jessie Ebie</div>
   </footer>
+  <p class="visually-hidden" id="copy-status" aria-live="polite"></p>
+  <script>
+    const copyStatus = document.getElementById("copy-status");
+
+    async function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.setAttribute("readonly", "");
+      textArea.style.position = "fixed";
+      textArea.style.opacity = "0";
+      document.body.appendChild(textArea);
+      textArea.select();
+      const copied = document.execCommand("copy");
+      textArea.remove();
+      if (!copied) throw new Error("Copy failed");
+    }
+
+    document.querySelectorAll(".embed-copy").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const embedCode = `<iframe src="${button.dataset.embedUrl}" title="${button.dataset.embedTitle}" width="100%" height="900" style="border: 1px solid #767676;" loading="lazy"></iframe>`;
+        const originalText = button.textContent;
+
+        try {
+          await copyText(embedCode);
+          button.textContent = "Copied";
+          copyStatus.textContent = `${button.dataset.embedTitle} embed code copied.`;
+        } catch (error) {
+          button.textContent = "Copy failed";
+          copyStatus.textContent = "The embed code could not be copied. Please try again.";
+        }
+
+        window.setTimeout(() => {
+          button.textContent = originalText;
+        }, 2000);
+      });
+    });
+  </script>
 </body>
 </html>
