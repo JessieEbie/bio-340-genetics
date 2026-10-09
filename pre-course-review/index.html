@@ -794,7 +794,7 @@
         prompt: "Which decimal is equivalent to the fraction 3/8?",
         choices: ["0.0375", "0.375", "3.75", "37.5"],
         answer: 1,
-        feedback: "Review converting among fractions, decimals, and percentages. Three divided by eight is the decimal 0.375, which is also 37.5 percent."
+        feedback: "To convert a fraction to a decimal, divide the numerator by the denominator. Here, 3 ÷ 8 = 0.375. If the question asked for a percentage, you would then multiply 0.375 by 100 to get 37.5 percent."
       },
       {
         topic: "probability",
@@ -802,7 +802,7 @@
         prompt: "A fair coin is flipped three times. What is the probability of getting heads all three times?",
         choices: ["1/2", "1/4", "1/8", "3/8"],
         answer: 2,
-        feedback: "Review the product rule for independent events. Multiply 1/2 × 1/2 × 1/2 to get 1/8."
+        feedback: "Each flip has a 1/2 probability of heads, and the flips are independent. Because all three heads must occur, multiply the probabilities: 1/2 × 1/2 × 1/2 = 1/8."
       },
       {
         topic: "probability",
@@ -810,7 +810,7 @@
         prompt: "In an Aa × Aa cross, what is the probability that an offspring will have genotype aa?",
         choices: ["0", "1/4", "1/2", "3/4"],
         answer: 1,
-        feedback: "Review how alleles separate into gametes and how to combine the probabilities from each parent."
+        feedback: "Each Aa parent has a 1/2 probability of contributing the a allele. The offspring must receive a from both parents, so multiply: 1/2 × 1/2 = 1/4."
       },
       {
         topic: "probability",
@@ -824,14 +824,14 @@
         prompt: "Which percentage is equivalent to 0.07?",
         choices: ["0.7 percent", "7 percent", "17 percent", "70 percent"],
         answer: 1,
-        feedback: "Review conversions between decimals and percentages. Multiply a decimal by 100 to convert it to a percentage."
+        feedback: "To convert a decimal to a percentage, multiply by 100 and include the percent sign. Thus, 0.07 × 100 = 7 percent."
       },
       {
         topic: "probability",
         prompt: "Two outcomes are mutually exclusive. One has probability 0.30 and the other has probability 0.40. What is the probability that either outcome occurs?",
         choices: ["0.12", "0.35", "0.70", "1.20"],
         answer: 2,
-        feedback: "Review the sum rule. For mutually exclusive outcomes, add the probabilities because the outcomes cannot happen together."
+        feedback: "Because the outcomes are mutually exclusive, they cannot occur together. Add their probabilities: 0.30 + 0.40 = 0.70."
       },
       {
         topic: "probability",
@@ -845,21 +845,21 @@
         prompt: "If 2x = 10, what is x?",
         choices: ["2", "5", "8", "20"],
         answer: 1,
-        feedback: "Review rearranging a simple equation. Divide both sides by 2 to isolate x."
+        feedback: "Undo the multiplication by dividing both sides by 2: 2x ÷ 2 = 10 ÷ 2. This leaves x = 5."
       },
       {
         topic: "probability",
         prompt: "A group has a 3 to 1 ratio of purple to white flowers. If there are 80 flowers, how many would be expected to be purple?",
         choices: ["20", "40", "60", "75"],
         answer: 2,
-        feedback: "Review ratios and proportions. Three of every four parts are purple, so 3/4 of 80 is 60."
+        feedback: "A 3 to 1 ratio has four total parts. Purple flowers make up 3/4 of the group, so calculate 80 × 3/4 = 60."
       },
       {
         topic: "probability",
         prompt: "A graph shows an allele frequency increasing from 0.20 to 0.35. Which statement is supported by the graph alone?",
         choices: ["The allele became dominant", "The allele frequency increased by 0.15, or 15 percentage points", "Natural selection caused the change", "Every individual acquired the allele"],
         answer: 1,
-        feedback: "Review how to read a graph without overinterpreting it. The frequency increased by 0.15, which is 15 percentage points, but the graph does not identify the cause."
+        feedback: "Subtract the starting frequency from the ending frequency: 0.35 − 0.20 = 0.15. That is an increase of 15 percentage points. The graph shows the change, but it does not establish why the change occurred."
       },
       {
         topic: "molecules",
@@ -960,7 +960,7 @@
         prompt: "A DNA template strand reads 3′-TAC GGA ACT-5′. Which mRNA sequence would be transcribed?",
         choices: ["5′-AUG CCU UGA-3′", "5′-TAC GGA ACT-3′", "3′-AUG CCU UGA-5′", "5′-ATG CCT TGA-3′"],
         answer: 0,
-        feedback: "Review base pairing and strand direction during transcription. RNA is made complementary and antiparallel to the DNA template."
+        feedback: "Read the DNA template from 3-prime to 5-prime and build the RNA 5-prime to 3-prime using T-A, A-U, C-G, and G-C pairing. TAC becomes AUG, GGA becomes CCU, and ACT becomes UGA."
       },
       {
         topic: "information",
@@ -976,7 +976,7 @@
         prompt: "A double-stranded DNA molecule contains 28 percent adenine. What percentages of thymine, guanine, and cytosine should it contain?",
         choices: ["T 28 percent, G 22 percent, C 22 percent", "T 22 percent, G 28 percent, C 22 percent", "T 28 percent, G 28 percent, C 16 percent", "T 22 percent, G 22 percent, C 28 percent"],
         answer: 0,
-        feedback: "Review complementary base pairing in double-stranded DNA. Adenine and thymine have equal percentages, as do guanine and cytosine."
+        feedback: "In double-stranded DNA, A pairs with T, so thymine must also be 28 percent. A and T together account for 56 percent. The remaining 44 percent is split equally between G and C, so each is 22 percent."
       },
       {
         topic: "information",
@@ -1025,14 +1025,14 @@
         prompt: "A parent cell has 18 chromosomes. After mitosis, how many chromosomes should each daughter cell have?",
         choices: ["9", "18", "36", "The number cannot be predicted"],
         answer: 1,
-        feedback: "Review how chromosome number changes during cell division. Mitosis usually preserves the chromosome number."
+        feedback: "Mitosis separates duplicated chromosomes so each daughter cell receives one complete set. It preserves chromosome number, so each daughter cell has the same 18 chromosomes as the parent cell."
       },
       {
         topic: "cells",
         prompt: "A diploid parent cell begins meiosis with 18 chromosomes. In the standard introductory model, how many chromosomes should each resulting haploid cell have?",
         choices: ["9", "18", "27", "36"],
         answer: 0,
-        feedback: "Review how chromosome number changes during cell division. Meiosis reduces the chromosome number by half, so each resulting haploid cell has 9 chromosomes."
+        feedback: "Meiosis separates homologous chromosome pairs and reduces the diploid chromosome number by half. Half of 18 is 9, so each resulting haploid cell has 9 chromosomes."
       },
       {
         topic: "cells",
@@ -1048,7 +1048,7 @@
         prompt: "An organism has 18 chromosomes in a body cell. How many chromosomes should each daughter cell have after mitosis, and how many should each resulting cell have after meiosis?",
         choices: ["18 after mitosis and 9 after meiosis", "9 after mitosis and 18 after meiosis", "18 after both processes", "9 after both processes"],
         answer: 0,
-        feedback: "Review how chromosome number changes during cell division. Mitosis preserves chromosome number, while meiosis reduces it by half."
+        feedback: "Mitosis preserves the starting chromosome number, so its daughter cells have 18 chromosomes. Meiosis reduces the diploid number by half, so its resulting haploid cells have 9 chromosomes."
       },
       {
         topic: "cells",
@@ -1151,6 +1151,67 @@
         feedback: "Review mutation as a source of new alleles. Mutations do not arise because they would be useful, and their effects can be harmful, neutral, or beneficial."
       }
     ];
+
+    const questionHints = [
+      "Divide the numerator by the denominator. Pay attention to whether the question asks for a decimal or a percentage.",
+      "The word all means every event must happen. For independent events that must all occur, use the product rule.",
+      "Ask what each parent must contribute for the offspring to be aa, then combine the two parental probabilities.",
+      "Look for the word both. When independent events must both occur, combine their probabilities with the product rule.",
+      "A percentage means per 100. Move from the decimal form to an amount out of 100.",
+      "The outcomes cannot happen together, so there is no overlap to subtract when finding the probability of either outcome.",
+      "Ask whether learning that one event occurred would change the probability of the other event.",
+      "Use the inverse operation to undo the multiplication attached to x.",
+      "First find the total number of ratio parts, then determine what fraction of those parts represents purple flowers.",
+      "Describe only what the two plotted values show. A graph of change does not, by itself, identify a cause.",
+      "Think about the covalent linkage formed between the amino group of one amino acid and the carboxyl group of another.",
+      "Separate the question into two locations: the sugar-phosphate backbone within one strand and paired bases across two strands.",
+      "Focus on the attraction between complementary bases across the strands, not the covalent backbone within a strand.",
+      "Use both the functional group and its charge near physiological pH to classify the side chain.",
+      "Building a polymer from monomers and breaking a polymer apart use opposite water-based reactions.",
+      "Match the polymer to its repeating building block. DNA and RNA are nucleic acids.",
+      "Look for the amino acid whose side chain contains a sulfhydryl group that can form an S-S linkage.",
+      "Consider how a nonpolar group behaves in water and where it can minimize contact with water.",
+      "Unequal electron sharing produces partial charges. Choose the bond category defined by that feature.",
+      "Primary structure describes the linear order of the monomers in one polypeptide chain.",
+      "Transcription uses DNA as a template. Identify the type of molecule synthesized from that template.",
+      "Translation converts information in mRNA into a chain of amino acids.",
+      "Think of how the ribosome groups the mRNA sequence as it reads the genetic code.",
+      "Write the template and RNA in opposite directions, then apply RNA base-pairing rules one base at a time.",
+      "Identify which molecule stores the information, which carries a transcript, and which is built from that transcript.",
+      "Start with A = T and G = C. After accounting for A and T, divide the remaining percentage equally between G and C.",
+      "Compare the nitrogenous bases used in RNA with those used in DNA.",
+      "The term describes strand orientation. Compare the 5-prime and 3-prime direction of one strand with the other.",
+      "Track the origin of the two strands in each completed DNA molecule after replication.",
+      "Look for the qualified statement. The effect of a sequence change depends on its location and biological consequence.",
+      "Count the products of one cell division in the standard mitosis model.",
+      "Meiosis contains two divisions. Follow one starting cell through both divisions in the standard introductory model.",
+      "Mitosis normally preserves chromosome number; DNA replication does not permanently double the chromosome count in each daughter cell.",
+      "Meiosis reduces a diploid chromosome number by half. Calculate half of the starting number.",
+      "Distinguish homologous chromosomes from sister chromatids. Homologs carry corresponding genes but are not necessarily identical.",
+      "Treat the two processes separately: mitosis preserves chromosome number, while meiosis halves it.",
+      "Decide which term names the DNA feature and which term names an alternative version of that feature.",
+      "A genotype is written as an allele combination. A phenotype is an observable characteristic.",
+      "Follow the two alleles from a diploid parent into its gametes and ask how many copies each gamete receives.",
+      "Think about how the orientation of one homologous pair during meiosis relates to the orientation of another pair.",
+      "Distinguish creating a DNA sequence variant from changing how common an existing variant is.",
+      "Dominance describes expression in a heterozygote, not frequency, benefit, strength, or inheritance probability.",
+      "Evolution is measured at the population level across generations. Identify what population-level quantity changes.",
+      "Look for a mechanism in which sampling chance, rather than fitness differences, changes allele frequencies.",
+      "Focus on movement and reproduction between populations rather than creation of a new DNA sequence.",
+      "Natural selection requires heritable variation and consistent differences in reproductive success in a particular environment.",
+      "Recombination rearranges alleles that already exist; it is different from a DNA sequence change that creates a new allele.",
+      "Choose the example that describes a population-level genetic change across generations.",
+      "The survivors are a chance sample of the original population. Identify the evolutionary process driven by that sampling effect.",
+      "Mutation does not occur because it is needed. Separate the origin of a new allele from the processes that change its frequency."
+    ];
+
+    if (questionHints.length !== questions.length) {
+      throw new Error("Every practice question must have question-specific guidance.");
+    }
+
+    questions.forEach((question, index) => {
+      question.hint = questionHints[index];
+    });
 
     const explanations = [
       {
@@ -1352,14 +1413,6 @@
     let answers = [];
     let attempts = 0;
 
-    const reviewGuidance = {
-      probability: "Write down what the question is asking for and keep fractions, decimals, percentages, and percentage-point changes distinct.",
-      molecules: "Identify the relevant atoms, functional groups, or side-chain properties before deciding which bond or interaction applies.",
-      information: "Track the molecule, strand, base-pairing rule, and 5-prime to 3-prime direction before choosing an answer.",
-      cells: "Track the starting chromosome number, the number of divisions, and whether the products are diploid or haploid.",
-      evolution: "Ask whether the question concerns the origin of an allele, movement between populations, chance, or differences in reproductive success."
-    };
-
     function showExplanation(question) {
       const normalizedQuestion = question.toLowerCase().replace(/[?.,!]/g, " ");
       let bestMatch = null;
@@ -1527,7 +1580,7 @@
       const correctAnswers = Array.isArray(question.answer) ? question.answer : [question.answer];
       const answerText = correctAnswers.map((answerIndex) => question.choices[answerIndex]).join("; ");
       feedback.className = `feedback ${isCorrect ? "correct" : "review"}`;
-      feedback.innerHTML = `<strong>${introduction}</strong><p><strong>${correctAnswers.length > 1 ? "Correct answers" : "Correct answer"}:</strong> ${answerText}</p><p><strong>Why:</strong> ${question.feedback}</p><p><strong>Review guidance:</strong> ${reviewGuidance[question.topic]}</p>`;
+      feedback.innerHTML = `<strong>${introduction}</strong><p><strong>${correctAnswers.length > 1 ? "Correct answers" : "Correct answer"}:</strong> ${answerText}</p><p><strong>How to work it out:</strong> ${question.feedback}</p><p><strong>Key idea to use:</strong> ${question.hint}</p>`;
       feedback.hidden = false;
       checkButton.hidden = true;
       revealButton.hidden = true;
@@ -1579,7 +1632,7 @@
 
       const triesLeft = 3 - attempts;
       feedback.className = "feedback review";
-      feedback.innerHTML = `<strong>Not quite. You have ${triesLeft === 1 ? "one try" : `${triesLeft} tries`} left.</strong><p>${reviewGuidance[question.topic]}</p><p>You can try another answer or choose “Show answer and explanation.”</p>`;
+      feedback.innerHTML = `<strong>Not quite. You have ${triesLeft === 1 ? "one try" : `${triesLeft} tries`} left.</strong><p><strong>Hint:</strong> ${question.hint}</p><p>You can try another answer or choose “Show answer and explanation.”</p>`;
       feedback.hidden = false;
       feedback.focus();
       chosen.forEach((input) => {
